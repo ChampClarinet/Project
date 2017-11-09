@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Project</string>
+    <string name="pet_hospital">โรงพยาบาลสัตว์</string>
+    <string name="search">ค้นหา</string>
+    <string name="settings">ตั้งค่า</string>
+    <string name="language">ภาษา</string>
+    <string name="pet_service">สถานบริการสัตว์เลี้ยง</string>
+    <string name="likeLabel">"ถุกใจ : "</string>
+</resources>

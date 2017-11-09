@@ -1,0 +1,39 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:colorForeground">@color/cardview_dark_background</item>
+        <item name="colorPrimaryDark">@color/cardview_dark_background</item>
+        <item name="android:navigationBarColor">@color/cardview_dark_background</item>
+        <item name="colorPrimary">@color/com_facebook_button_login_silver_background_color</item>
+        <item name="colorAccent">@color/com_facebook_button_background_color_selected</item>
+        <item name="android:textColorPrimaryInverse">@color/cardview_dark_background</item>
+        <item name="android:colorBackground">@color/cardview_light_background</item>
+        <item name="colorControlNormal">@color/com_facebook_button_background_color_selected</item>
+    </style>
+
+    <style name="ActionBar" parent="@style/Widget.AppCompat.Light.ActionBar">
+        <!-- this how the fucking hell to change title elements color. apply it at toolbar widget xml -->
+        <item name="android:textColorPrimary">@color/com_facebook_button_background_color_selected
+        </item>
+        <item name="android:textColorHint">@color/com_facebook_button_background_color_selected
+        </item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:colorPrimaryDark">@color/cardview_dark_background</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>
