@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +28,10 @@ public class StoreDescriptionFragment extends Fragment {
     private Context context;
 
     private static final String ARG_STORE = "STORE";
+    private static final String ARG_IS_LIKE = "IS_LIKE";
 
     private Store store;
+    private boolean isLiked;
 
     @BindView(R.id.imageview_store)
     ImageView storeImageView;
@@ -67,6 +68,8 @@ public class StoreDescriptionFragment extends Fragment {
         fragment.context = context;
         Bundle args = new Bundle();
         args.putSerializable(ARG_STORE, store);
+        boolean isLike = true; //get islike from database
+        args.putBoolean(ARG_IS_LIKE, isLike);
         fragment.setArguments(args);
         return fragment;
     }
@@ -76,6 +79,7 @@ public class StoreDescriptionFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             store = (Store) getArguments().getSerializable(ARG_STORE);
+            isLiked = getArguments().getBoolean(ARG_IS_LIKE);
         }
     }
 
@@ -107,16 +111,30 @@ public class StoreDescriptionFragment extends Fragment {
 
         //set image
         likesTextView.setText(Integer.toString(store.getLikes()));
-        //check if liked to use this command
-        try {
-            likeImageView.setColorFilter(context.getResources().getColor(R.color.liked));
-        } catch (NullPointerException e) {
-            likeImageView.setColorFilter(Color.argb(255, 249, 126, 119));
+        if (isLiked) {
+            try {
+                likeImageView.setColorFilter(context.getResources().getColor(R.color.liked));
+            } catch (NullPointerException e) {
+                likeImageView.setColorFilter(Color.argb(255, 249, 126, 119));
+            }
         }
         setDays();
         openTimeTextView.setText(getOpenTimeString(store.getDayOpen(), store.getTimeOpen(), store.getTimeClose()));
         //telTextView.setText(store.getTelNo());
         //descTextView.setText(store.getDescription());
+
+        likeImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isLiked){
+                    isLiked = false;
+                    likeImageView.setColorFilter(context.getResources().getColor(R.color.icon));
+                }else{
+                    isLiked = true;
+                    likeImageView.setColorFilter(context.getResources().getColor(R.color.liked));
+                }
+            }
+        });
 
     }
 
