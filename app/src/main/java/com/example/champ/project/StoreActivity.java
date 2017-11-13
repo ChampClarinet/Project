@@ -1,17 +1,20 @@
 package com.example.champ.project;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.example.champ.project.Models.Store;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class StoreActivity extends AppCompatActivity {
+
+    @BindView(R.id.imageview_store_like)
+    ImageView like;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +27,17 @@ public class StoreActivity extends AppCompatActivity {
         toolbar.setTitle(store.getName());
         setSupportActionBar(toolbar);
 
+        ButterKnife.bind(this);
+
         getBackIcon();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setData();
 
     }
 
@@ -33,6 +46,11 @@ public class StoreActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+    }
+
+    private void setData(){
+        //if(like)
+        like.setColorFilter(getResources().getColor(R.color.liked));
     }
 
     @Override

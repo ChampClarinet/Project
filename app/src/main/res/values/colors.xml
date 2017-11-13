@@ -3,4 +3,7 @@
     <color name="colorPrimary">@color/cardview_light_background</color>
     <color name="colorPrimaryDark">@color/primary_dark_material_light</color>
     <color name="colorAccent">@color/com_facebook_button_background_color_selected</color>
+    <color name="text">@color/colorPrimaryDark</color>
+    <color name="icon">@color/text</color>
+    <color name="liked">#f97e77</color>
 </resources>

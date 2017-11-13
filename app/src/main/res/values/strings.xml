@@ -19,5 +19,12 @@
     <string name="model_name_store" translatable="false">Store</string>
     <string name="model_name_hospital" translatable="false">Hospital</string>
     <string name="error_invalid_service_type">INVALID_SERVICE_TYPE</string>
+    <string name="review">Review</string>
+
+    <!--Mock Strings-->
+    <string name="mock_address">221B Baker St, Marylebone, London</string>
+    <string name="mock_time">Every day 9 AM to 10 PM</string>
+    <string name="mock_tel" translatable="false">0632724678</string>
+    <string name="mock_likes_quantity">592</string>
 
 </resources>
