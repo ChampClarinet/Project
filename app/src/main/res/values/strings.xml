@@ -8,6 +8,10 @@
     <string name="pet_hospital">Pet Hospital</string>
     <string name="likeLabel">Likes :</string>
 
+    <string name="every_day">Every day</string>
+    <string name="hour_suffix" />
+    <string name="minutes" />
+
     <string name="search">Search</string>
     <string name="settings">Settings</string>
     <string name="language">Language</string>
@@ -18,13 +22,26 @@
     <string name="english" translatable="false">English</string>
     <string name="model_name_store" translatable="false">Store</string>
     <string name="model_name_hospital" translatable="false">Hospital</string>
-    <string name="error_invalid_service_type">INVALID_SERVICE_TYPE</string>
-    <string name="review">Review</string>
+    <string name="error_invalid_service_type" translatable="false">INVALID_SERVICE_TYPE</string>
+    <string name="tab_info">INFO</string>
+    <string name="tab_review">REVIEW</string>
+    <string name="tab_location">LOCATION</string>
+
+    <!--Days-->
+    <string name="SUN">SUN</string>
+    <string name="MON">MON</string>
+    <string name="TUE">TUE</string>
+    <string name="WED">WED</string>
+    <string name="THU">THU</string>
+    <string name="FRI">FRI</string>
+    <string name="SAT">SAT</string>
 
     <!--Mock Strings-->
     <string name="mock_address">221B Baker St, Marylebone, London</string>
-    <string name="mock_time">Every day 9 AM to 10 PM</string>
+    <string name="mock_time">9 AM to 10 PM</string>
     <string name="mock_tel" translatable="false">0632724678</string>
-    <string name="mock_likes_quantity">592</string>
+    <string name="mock_likes_quantity" translatable="false">592</string>
+    <string name="mock_description">This is Description\nSee? this is fucking description</string>
+    <string name="to">to</string>
 
 </resources>

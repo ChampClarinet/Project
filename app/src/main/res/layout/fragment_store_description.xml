@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.champ.project.StoreActivity"
-    tools:layout_editor_absoluteY="81dp"
-    tools:showIn="@layout/activity_store">
+    tools:layout_editor_absoluteY="81dp">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -91,16 +89,87 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/activity_default_margin"
                 android:src="@drawable/ic_schedule_black_24dp"
                 android:tint="@color/icon" />
 
-            <TextView
-                android:id="@+id/store_time_open"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mock_time"
-                android:textColor="@color/text" />
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/store_open_sunday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/activity_default_margin"
+                        android:text="@string/SUN"
+                        android:textColor="@color/text" />
+
+                    <TextView
+
+                        android:id="@+id/store_open_monday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/activity_default_margin"
+                        android:text="@string/MON"
+                        android:textColor="@color/text" />
+
+                    <TextView
+                        android:id="@+id/store_open_tuesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/activity_default_margin"
+                        android:text="@string/TUE"
+                        android:textColor="@color/text" />
+
+                    <TextView
+                        android:id="@+id/store_open_wednesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/activity_default_margin"
+                        android:text="@string/WED"
+                        android:textColor="@color/text" />
+
+                    <TextView
+                        android:id="@+id/store_open_thursday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/activity_default_margin"
+                        android:text="@string/THU"
+                        android:textColor="@color/text" />
+
+                    <TextView
+                        android:id="@+id/store_open_friday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/activity_default_margin"
+                        android:text="@string/FRI"
+                        android:textColor="@color/text" />
+
+                    <TextView
+                        android:id="@+id/store_open_saturday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/SAT"
+                        android:textColor="@color/text" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/store_time_open"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mock_time"
+                    android:textColor="@color/text" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -131,15 +200,47 @@
         </LinearLayout>
 
         <View
-            android:id="@+id/separator_review_layout"
+            android:id="@+id/separator_store_layout1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="@dimen/activity_default_margin"
             android:background="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/group_tel" />
+            app:layout_constraintTop_toBottomOf="@id/group_tel" />
 
+        <TextView
+            android:id="@+id/store_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_default_margin"
+            android:singleLine="false"
+            android:text="@string/mock_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/separator_store_layout1" />
+
+        <View
+            android:id="@+id/separator_store_layout2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/activity_default_margin"
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/store_desc" />
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/store_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/separator_store_layout2" />
 
     </android.support.constraint.ConstraintLayout>
+
 </ScrollView>

@@ -6,5 +6,22 @@
     <string name="settings">ตั้งค่า</string>
     <string name="language">ภาษา</string>
     <string name="pet_service">สถานบริการสัตว์เลี้ยง</string>
-    <string name="likeLabel">"ถุกใจ : "</string>
+    <string name="likeLabel">"ถูกใจ : "</string>
+    <string name="every_day">ทุกวัน</string>
+    <string name="tab_info">ข้อมูล</string>
+    <string name="tab_review">รีวิว</string>
+    <string name="tab_location">ที่อยู่ร้าน</string>
+    <string name="SUN">จ</string>
+    <string name="MON">อ</string>
+    <string name="TUE">พ</string>
+    <string name="WED">พฤ</string>
+    <string name="THU">ศ</string>
+    <string name="FRI">ส</string>
+    <string name="SAT">อา</string>
+    <string name="mock_address">6 ถนนราชมรรคาใน อำเภอเมือง นครปฐม 73000</string>
+    <string name="mock_time">9.30 น.</string>
+    <string name="mock_description">นี่เราเอง\nเราไงจำไม่ได้หรอ\nเสียใจ ฮือออออ</string>
+    <string name="to">ถึง</string>
+    <string name="hour_suffix">น.</string>
+    <string name="minutes">นาที</string>
 </resources>

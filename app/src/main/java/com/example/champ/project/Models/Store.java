@@ -1,14 +1,20 @@
 package com.example.champ.project.Models;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
-public class Store implements Serializable{
+public class Store implements Serializable {
 
     private final int id;
     private String name;
     private String picturePath;
+    private String telNo;
     private int priceRate;
     private int likes;
+    boolean[] dayOpen; //true at [0] for everyday open, 1 for Sunday, 2 for Tuesday etc.
+    Calendar timeOpen;
+    Calendar timeClose;
+    private String description;
     private double latitude;
     private double longtitude;
 
@@ -18,6 +24,29 @@ public class Store implements Serializable{
         this.picturePath = picturePath;
         this.priceRate = priceRate;
         this.likes = likes;
+        this.latitude = latitude;
+        this.longtitude = longtitude;
+    }
+
+    public Store(int id, String name, String picturePath, String telNo, int priceRate, int likes, boolean[] dayOpen, int hourOpen, int minuteOpen
+            , int hourClose, int minuteClose, String description, double latitude, double longtitude) {
+        this.id = id;
+        this.name = name;
+        this.picturePath = picturePath;
+        this.telNo = telNo;
+        this.priceRate = priceRate;
+        this.likes = likes;
+        this.dayOpen = dayOpen.clone();
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(Calendar.HOUR_OF_DAY, hourOpen);
+        calendar.set(Calendar.MINUTE, minuteOpen);
+        this.timeOpen = calendar;
+        calendar.clear();
+        calendar.set(Calendar.HOUR_OF_DAY, hourClose);
+        calendar.set(Calendar.MINUTE, minuteClose);
+        this.timeClose = calendar;
+        this.description = description;
         this.latitude = latitude;
         this.longtitude = longtitude;
     }
@@ -42,6 +71,14 @@ public class Store implements Serializable{
         this.picturePath = picturePath;
     }
 
+    public String getTelNo() {
+        return telNo;
+    }
+
+    public void setTelNo(String telNo) {
+        this.telNo = telNo;
+    }
+
     public int getPriceRate() {
         return priceRate;
     }
@@ -56,6 +93,38 @@ public class Store implements Serializable{
 
     public void setLikes(int likes) {
         this.likes = likes;
+    }
+
+    public boolean[] getDayOpen() {
+        return dayOpen;
+    }
+
+    public void setDayOpen(boolean[] dayOpen) {
+        this.dayOpen = dayOpen;
+    }
+
+    public Calendar getTimeOpen() {
+        return timeOpen;
+    }
+
+    public void setTimeOpen(Calendar timeOpen) {
+        this.timeOpen = timeOpen;
+    }
+
+    public Calendar getTimeClose() {
+        return timeClose;
+    }
+
+    public void setTimeClose(Calendar timeClose) {
+        this.timeClose = timeClose;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double getLatitude() {

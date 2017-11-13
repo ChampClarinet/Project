@@ -1,27 +1,48 @@
 package com.example.champ.project;
 
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.example.champ.project.Adapters.StorePagerAdapter;
 import com.example.champ.project.Models.Store;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class StoreActivity extends AppCompatActivity {
 
-    @BindView(R.id.imageview_store_like)
-    ImageView like;
+    @BindView(R.id.store_pager)
+    ViewPager pager;
+
+    private Store store;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
 
-        Store store = (Store) getIntent().getSerializableExtra(getString(R.string.model_name_store));
+        store = (Store) getIntent().getSerializableExtra(getString(R.string.model_name_store));
+
+        //set dummy value
+        boolean[] days = {false, true, true, true, false, true, false, true, false};
+        store.setDayOpen(days);
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 0);
+        store.setTimeOpen(calendar);
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.clear();
+        calendar2.set(Calendar.HOUR_OF_DAY, 20);
+        calendar2.set(Calendar.MINUTE, 0);
+        store.setTimeClose(calendar2);
 
         Toolbar toolbar = findViewById(R.id.store_toolbar);
         toolbar.setTitle(store.getName());
@@ -37,7 +58,7 @@ public class StoreActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        setData();
+        setPager();
 
     }
 
@@ -48,9 +69,9 @@ public class StoreActivity extends AppCompatActivity {
         }
     }
 
-    private void setData(){
-        //if(like)
-        like.setColorFilter(getResources().getColor(R.color.liked));
+    private void setPager(){
+        StorePagerAdapter adapter = new StorePagerAdapter(store, this, getSupportFragmentManager());
+        pager.setAdapter(adapter);
     }
 
     @Override

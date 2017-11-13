@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
 import java.util.Locale;
 
 public class Utils {
@@ -33,11 +34,38 @@ public class Utils {
         return null;
     }
 
-    public static void setLanguage(Context context){
+    public static String calendarToStringHourAndMinute(Context context, Calendar dateTime) {
+        String systemLanguage = Locale.getDefault().getLanguage();
+        final String JAPANESE = "ja";
+        final String THAI = "th";
+
+        String hour = Integer.toString(dateTime.get(Calendar.HOUR_OF_DAY));
+        int min = dateTime.get(Calendar.MINUTE);
+        String minute = Integer.toString(min);
+        if (min < 10) minute = "0" + minute;
+        switch (systemLanguage) {
+            case JAPANESE:
+                hour += context.getString(R.string.hour_suffix) +
+                        minute +
+                        context.getString(R.string.minutes);
+                break;
+            case THAI:
+                hour += "." +
+                        minute +
+                        context.getString(R.string.hour_suffix);
+                break;
+            default:
+                hour += ":" + minute;
+                break;
+        }
+        return hour;
+    }
+
+    public static void setLanguage(Context context) {
         setLanguage(context, context.getString(R.string.default_language_code));
     }
 
-    public static void setLanguage(Context context, String language){
+    public static void setLanguage(Context context, String language) {
         Configuration config = new Configuration();
         config.setLocale(new Locale(language));
         context.getResources().updateConfiguration(config, null);
