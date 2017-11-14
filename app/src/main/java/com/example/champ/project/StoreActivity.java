@@ -1,12 +1,11 @@
 package com.example.champ.project;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import com.example.champ.project.Adapters.StorePagerAdapter;
 import com.example.champ.project.Models.Store;
@@ -20,6 +19,8 @@ public class StoreActivity extends AppCompatActivity {
 
     @BindView(R.id.store_pager)
     ViewPager pager;
+    @BindView(R.id.store_tabs)
+    TabLayout tabLayout;
 
     private Store store;
 
@@ -29,6 +30,24 @@ public class StoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_store);
 
         store = (Store) getIntent().getSerializableExtra(getString(R.string.model_name_store));
+
+        Toolbar toolbar = findViewById(R.id.store_toolbar);
+        toolbar.setTitle(store.getName());
+        setSupportActionBar(toolbar);
+
+        ButterKnife.bind(this);
+
+        //setup tabs
+        pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(pager));
+
+        setUpBackIcon();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         //set dummy value
         boolean[] days = {false, true, true, true, false, true, false, true, false};
@@ -44,25 +63,11 @@ public class StoreActivity extends AppCompatActivity {
         calendar2.set(Calendar.MINUTE, 0);
         store.setTimeClose(calendar2);
 
-        Toolbar toolbar = findViewById(R.id.store_toolbar);
-        toolbar.setTitle(store.getName());
-        setSupportActionBar(toolbar);
-
-        ButterKnife.bind(this);
-
-        getBackIcon();
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
         setPager();
 
     }
 
-    private void getBackIcon() {
+    private void setUpBackIcon() {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -70,7 +75,7 @@ public class StoreActivity extends AppCompatActivity {
     }
 
     private void setPager(){
-        StorePagerAdapter adapter = new StorePagerAdapter(store, this, getSupportFragmentManager());
+        StorePagerAdapter adapter = new StorePagerAdapter(store, getSupportFragmentManager());
         pager.setAdapter(adapter);
     }
 

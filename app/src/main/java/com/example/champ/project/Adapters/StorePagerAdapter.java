@@ -6,34 +6,32 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.champ.project.Fragments.StoreDescriptionFragment;
+import com.example.champ.project.Fragments.StoreLocationFragment;
 import com.example.champ.project.Models.Store;
 
 public class StorePagerAdapter extends FragmentPagerAdapter {
 
     private static final String TAG = StorePagerAdapter.class.getSimpleName();
-    private Context context;
+
     private Store store;
 
-    public StorePagerAdapter(Store store, Context context, FragmentManager fm) {
+    public StorePagerAdapter(Store store, FragmentManager fm) {
         super(fm);
         this.store = store;
-        this.context = context;
     }
 
     @Override
     public Fragment getItem(int position) {
-       /* switch (position) {
+        switch (position) {
             case 0:
-                return StoreDescriptionFragment.newInstance(store, context);
+                return StoreDescriptionFragment.newInstance(store);
             case 1:
-                return StoreReviewFragment.newInstance();
+                return StoreDescriptionFragment.newInstance(store);//StoreReviewFragment.newInstance();
             case 2:
-                return StoreMapsFragment.newInstance();
+                return StoreLocationFragment.newInstance(store);
             default:
                 return null;
         }
-        */
-       return StoreDescriptionFragment.newInstance(store, context);
     }
 
     @Override

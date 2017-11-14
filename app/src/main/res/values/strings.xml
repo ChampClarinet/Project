@@ -11,6 +11,7 @@
     <string name="every_day">Every day</string>
     <string name="hour_suffix" />
     <string name="minutes" />
+    <string name="to">to</string>
 
     <string name="search">Search</string>
     <string name="settings">Settings</string>
@@ -42,6 +43,7 @@
     <string name="mock_tel" translatable="false">0632724678</string>
     <string name="mock_likes_quantity" translatable="false">592</string>
     <string name="mock_description">This is Description\nSee? this is fucking description</string>
-    <string name="to">to</string>
+    <string name="mock_available">Available for dog, cat</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

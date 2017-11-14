@@ -25,4 +25,5 @@
     <string name="to">から</string>
     <string name="hour_suffix">時</string>
     <string name="minutes">分</string>
+    <string name="mock_available">犬、猫 のみ</string>
 </resources>

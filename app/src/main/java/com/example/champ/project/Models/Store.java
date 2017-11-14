@@ -16,20 +16,20 @@ public class Store implements Serializable {
     Calendar timeClose;
     private String description;
     private double latitude;
-    private double longtitude;
+    private double longitude;
 
-    public Store(int id, String name, String picturePath, int priceRate, int likes, double latitude, double longtitude) {
+    public Store(int id, String name, String picturePath, int priceRate, int likes, double latitude, double longitude) {
         this.id = id;
         this.name = name;
         this.picturePath = picturePath;
         this.priceRate = priceRate;
         this.likes = likes;
         this.latitude = latitude;
-        this.longtitude = longtitude;
+        this.longitude = longitude;
     }
 
     public Store(int id, String name, String picturePath, String telNo, int priceRate, int likes, boolean[] dayOpen, int hourOpen, int minuteOpen
-            , int hourClose, int minuteClose, String description, double latitude, double longtitude) {
+            , int hourClose, int minuteClose, String description, double latitude, double longitude) {
         this.id = id;
         this.name = name;
         this.picturePath = picturePath;
@@ -48,7 +48,7 @@ public class Store implements Serializable {
         this.timeClose = calendar;
         this.description = description;
         this.latitude = latitude;
-        this.longtitude = longtitude;
+        this.longitude = longitude;
     }
 
     public int getId() {
@@ -135,12 +135,12 @@ public class Store implements Serializable {
         this.latitude = latitude;
     }
 
-    public double getLongtitude() {
-        return longtitude;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setLongtitude(double longtitude) {
-        this.longtitude = longtitude;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
 }

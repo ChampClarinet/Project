@@ -30,10 +30,11 @@ public class ServiceMenu {
 
     public void loadFromDatabase() {
         serviceList.clear();
-        serviceList.add(new Store(1, "ABC Pet Shop", null, 3, 42, 13.7061402, 100.6221974));
-        serviceList.add(new Store(2, "RotFai Dog", null, 1, 347, 13.7061402, 100.6221974));
-        serviceList.add(new Store(3, "Navamin Cat", null, 2, 214, 13.8287249, 100.5567241));
-        serviceList.add(new Store(4, "Blah Blah Blah Bird", null, 1, 578, 13.7867163, 100.4444575));
+        serviceList.add(new Store(1, "ABC Pet Shop", null, 3, 42, 13.7124214, 100.52708480000001));
+        Log.d(serviceList.get(0).getName(), serviceList.get(0).getLatitude() + ", " + serviceList.get(0).getLongitude());
+        serviceList.add(new Store(2, "RotFai Dog", null, 1, 347, 13.7124214, 100.52708480000001));
+        serviceList.add(new Store(3, "Navamin Cat", null, 2, 214, 13.8263031, 100.67894260000003));
+        serviceList.add(new Store(4, "Blah Blah Blah Bird", null, 1, 578, 13.7574965, 100.4438738));
         for (Store s : serviceList) serviceHash.put(s.getId(), s);
     }
 

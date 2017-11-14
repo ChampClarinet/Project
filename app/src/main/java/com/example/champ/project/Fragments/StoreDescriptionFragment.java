@@ -1,5 +1,6 @@
 package com.example.champ.project.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,8 +25,6 @@ import butterknife.ButterKnife;
 public class StoreDescriptionFragment extends Fragment {
 
     private static final String TAG = StoreDescriptionFragment.class.getSimpleName();
-
-    private Context context;
 
     private static final String ARG_STORE = "STORE";
     private static final String ARG_IS_LIKE = "IS_LIKE";
@@ -63,9 +62,8 @@ public class StoreDescriptionFragment extends Fragment {
     public StoreDescriptionFragment() {
     }
 
-    public static StoreDescriptionFragment newInstance(Store store, Context context) {
+    public static StoreDescriptionFragment newInstance(Store store) {
         StoreDescriptionFragment fragment = new StoreDescriptionFragment();
-        fragment.context = context;
         Bundle args = new Bundle();
         args.putSerializable(ARG_STORE, store);
         boolean isLike = true; //get islike from database
@@ -86,13 +84,13 @@ public class StoreDescriptionFragment extends Fragment {
     private String getOpenTimeString(boolean[] dayOpen, Calendar openTime, Calendar closeTime) {
         String out = "";
         if (dayOpen[0]) {
-            out += context.getString(R.string.every_day) + " ";
+            out += getContext().getString(R.string.every_day) + " ";
         }
-        out += Utils.calendarToStringHourAndMinute(context, openTime) + " " +
-                context.getString(R.string.to) + " " +
-                Utils.calendarToStringHourAndMinute(context, closeTime);
+        out += Utils.calendarToStringHourAndMinute(getContext(), openTime) + " " +
+                getContext().getString(R.string.to) + " " +
+                Utils.calendarToStringHourAndMinute(getContext(), closeTime);
         if (Locale.getDefault().getLanguage().equals("ja")) {
-            out += context.getString(R.string.made);
+            out += getContext().getString(R.string.made);
         }
         return out;
     }
@@ -103,6 +101,7 @@ public class StoreDescriptionFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_store_description, container, false);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -112,11 +111,7 @@ public class StoreDescriptionFragment extends Fragment {
         //set image
         likesTextView.setText(Integer.toString(store.getLikes()));
         if (isLiked) {
-            try {
-                likeImageView.setColorFilter(context.getResources().getColor(R.color.liked));
-            } catch (NullPointerException e) {
-                likeImageView.setColorFilter(Color.argb(255, 249, 126, 119));
-            }
+            likeImageView.setColorFilter(getContext().getResources().getColor(R.color.liked));
         }
         setDays();
         openTimeTextView.setText(getOpenTimeString(store.getDayOpen(), store.getTimeOpen(), store.getTimeClose()));
@@ -126,12 +121,12 @@ public class StoreDescriptionFragment extends Fragment {
         likeImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isLiked){
+                if (isLiked) {
                     isLiked = false;
-                    likeImageView.setColorFilter(context.getResources().getColor(R.color.icon));
-                }else{
+                    likeImageView.setColorFilter(getContext().getResources().getColor(R.color.icon));
+                } else {
                     isLiked = true;
-                    likeImageView.setColorFilter(context.getResources().getColor(R.color.liked));
+                    likeImageView.setColorFilter(getContext().getResources().getColor(R.color.liked));
                 }
             }
         });
