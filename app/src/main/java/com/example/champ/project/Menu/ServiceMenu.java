@@ -20,18 +20,17 @@ public class ServiceMenu {
 
     public static ServiceMenu getInstance(Context context) {
         if (instance == null) instance = new ServiceMenu(context);
+        instance.loadFromDatabase();
         return instance;
     }
 
     private ServiceMenu(Context context) {
         this.context = context;
-        loadFromDatabase();
     }
 
     public void loadFromDatabase() {
         serviceList.clear();
         serviceList.add(new Store(1, "ABC Pet Shop", null, 3, 42, 13.7124214, 100.52708480000001));
-        Log.d(serviceList.get(0).getName(), serviceList.get(0).getLatitude() + ", " + serviceList.get(0).getLongitude());
         serviceList.add(new Store(2, "RotFai Dog", null, 1, 347, 13.7124214, 100.52708480000001));
         serviceList.add(new Store(3, "Navamin Cat", null, 2, 214, 13.8263031, 100.67894260000003));
         serviceList.add(new Store(4, "Blah Blah Blah Bird", null, 1, 578, 13.7574965, 100.4438738));

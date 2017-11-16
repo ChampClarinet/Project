@@ -1,9 +1,11 @@
-package com.example.champ.project;
+package com.example.champ.project.Utils;
 
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
+
+import com.example.champ.project.R;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
