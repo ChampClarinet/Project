@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/cv_photo"
                 android:layout_toEndOf="@+id/cv_likes"
-                android:background="@drawable/ic_attach_money_black_24dp" />
+                android:background="@drawable/ic_attach_money_white_24dp" />
 
             <ImageView
                 android:id="@+id/cv_money2"
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/cv_money1"
                 android:layout_toEndOf="@+id/cv_money1"
-                android:background="@drawable/ic_attach_money_black_24dp"
+                android:background="@drawable/ic_attach_money_white_24dp"
                 android:visibility="gone" />
 
             <ImageView
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/cv_money2"
                 android:layout_toEndOf="@+id/cv_money2"
-                android:background="@drawable/ic_attach_money_black_24dp"
+                android:background="@drawable/ic_attach_money_white_24dp"
                 android:visibility="gone" />
 
         </RelativeLayout>
