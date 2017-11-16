@@ -7,11 +7,11 @@
         <item
             android:id="@+id/drawer_pet_service"
             android:icon="@drawable/dog_paw"
-            android:title="@string/pet_service" />
+            android:title="@string/tab_service" />
         <item
             android:id="@+id/drawer_hospital"
             android:icon="@drawable/hospital"
-            android:title="@string/pet_hospital" />
+            android:title="@string/tab_hospital" />
         <item
             android:id="@+id/drawer_settings"
             android:icon="@drawable/ic_build_black_24dp"

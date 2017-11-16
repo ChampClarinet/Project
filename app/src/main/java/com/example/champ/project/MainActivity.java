@@ -1,26 +1,23 @@
 package com.example.champ.project;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.example.champ.project.Adapters.ServiceRecyclerViewAdapter;
-import com.example.champ.project.Menu.HospitalMenu;
-import com.example.champ.project.Menu.ServiceMenu;
-import com.example.champ.project.Models.Store;
-
-import java.util.ArrayList;
+import com.example.champ.project.Adapters.MainPagerAdapter;
+import com.example.champ.project.Fragments.PetHospitalListFragment;
+import com.example.champ.project.Fragments.PetServiceListFragment;
+import com.example.champ.project.Interfaces.Filterable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,19 +29,17 @@ public class MainActivity extends AppCompatActivity
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
-    @BindView(R.id.rv_service)
-    RecyclerView rvService;
-    @BindView(R.id.rv_hospital)
-    RecyclerView rvHospital;
     @BindView(R.id.searchView)
     SearchView searchView;
+    @BindView(R.id.service_list_pager)
+    ViewPager serviceListPager;
+    @BindView(R.id.service_tabs)
+    TabLayout serviceTabLayout;
 
-    private ServiceRecyclerViewAdapter serviceAdapter;
-    private ServiceRecyclerViewAdapter hospitalAdapter;
+    private MainPagerAdapter adapter;
 
     private int sortBy;
     private String defaultLanguage;
-    private String currentFocus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +50,15 @@ public class MainActivity extends AppCompatActivity
 
         //Utils.setLanguage();
 
-        currentFocus = getString(R.string.model_name_store);
-
         setNavBarAndActionBar();
+        setPager();
+    }
+
+    private void setPager() {
+        adapter = new MainPagerAdapter(getSupportFragmentManager());
+        serviceListPager.setAdapter(adapter);
+        serviceListPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(serviceTabLayout));
+        serviceTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(serviceListPager));
     }
 
     private void setNavBarAndActionBar() {
@@ -78,24 +79,6 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
 
-        HospitalMenu hMenu = HospitalMenu.getInstance(this);
-        ServiceMenu sMenu = ServiceMenu.getInstance(this);
-
-        ArrayList<Store> service = sMenu.getServiceList();
-        ArrayList<Store> hospital = hMenu.getHospitalList();
-
-        rvService.setHasFixedSize(true);
-        rvHospital.setHasFixedSize(true);
-
-        rvService.setLayoutManager(new LinearLayoutManager(this));
-        rvHospital.setLayoutManager(new LinearLayoutManager(this));
-
-        serviceAdapter = new ServiceRecyclerViewAdapter(service, this, getString(R.string.model_name_store));
-        hospitalAdapter = new ServiceRecyclerViewAdapter(hospital, this, getString(R.string.model_name_hospital));
-
-        rvService.setAdapter(serviceAdapter);
-        rvHospital.setAdapter(hospitalAdapter);
-
         searchView.setOnQueryTextListener(this);
 
     }
@@ -115,7 +98,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+/*
         if (id == R.id.drawer_pet_service) {
             rvService.setVisibility(View.VISIBLE);
             rvHospital.setVisibility(View.GONE);
@@ -128,7 +111,7 @@ public class MainActivity extends AppCompatActivity
             //go to setting activity
             startActivity(new Intent(this, SettingsActivity.class));
         }
-
+*/
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -141,11 +124,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if(currentFocus.equals(getString(R.string.model_name_store))){
-            serviceAdapter.filter(newText);
-        }else if(currentFocus.equals(getString(R.string.model_name_hospital))){
-            hospitalAdapter.filter(newText);
-        }else Log.d(TAG, getString(R.string.error_invalid_service_type));
+        int currentTab = serviceListPager.getCurrentItem();
+        Filterable f = (Filterable) adapter.getItem(currentTab);
+        f.filter(newText);
         return false;
     }
+
 }

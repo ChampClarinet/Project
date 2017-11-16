@@ -29,7 +29,7 @@ public class StoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
 
-        store = (Store) getIntent().getSerializableExtra(getString(R.string.model_name_store));
+        store = (Store) getIntent().getSerializableExtra(getString(R.string.model_name_services));
 
         Toolbar toolbar = findViewById(R.id.store_toolbar);
         toolbar.setTitle(store.getName());

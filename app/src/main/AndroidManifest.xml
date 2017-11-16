@@ -44,7 +44,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".StoreActivity"
-            android:label="@string/model_name_store"
+            android:label="@string/model_name_services"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!--

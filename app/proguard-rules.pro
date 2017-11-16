@@ -19,3 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keepclassmembers class toan.android.floatingactionmenu.FloatingActionsMenu$RotatingDrawable {
+   void set*(***);
+   *** get*();
+}

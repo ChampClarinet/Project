@@ -89,11 +89,11 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
             Store store;
             if (serviceType.equals(context.getString(R.string.model_name_hospital)))
                 store = HospitalMenu.getInstance(context).findHospitalById(id);
-            else if (serviceType.equals(context.getString(R.string.model_name_store)))
+            else if (serviceType.equals(context.getString(R.string.model_name_services)))
                 store = ServiceMenu.getInstance(context).findServiceById(id);
             else throw new Exception(context.getString(R.string.error_invalid_service_type));
             Intent i = new Intent(context, StoreActivity.class);
-            i.putExtra(context.getString(R.string.model_name_store), store);
+            i.putExtra(context.getString(R.string.model_name_services), store);
             context.startActivity(i);
         }
 
@@ -121,17 +121,11 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
 
     }
 
-    public void filter(String query) {
-        ArrayList<Store> newList = null;
-        if (serviceType.equals(context.getString(R.string.model_name_store)))
-            newList = ServiceMenu.getInstance(context).getFilteredServiceList(query);
-        else if (serviceType.equals(context.getString(R.string.model_name_hospital)))
-            newList = HospitalMenu.getInstance(context).getFilteredHospitalList(query);
-        if (newList != null) {
+    public void updateList(ArrayList<Store> newList) {
+        if(newList != null){
             cardList = newList;
             notifyDataSetChanged();
         }
-        Log.d("List", "" + printList());
     }
 
     private String printList() {

@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
-class SortAgent {
+public class SortAgent {
 
     private static final Comparator<Store> name = new Comparator<Store>() {
         @Override

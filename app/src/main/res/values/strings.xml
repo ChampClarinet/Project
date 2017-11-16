@@ -4,8 +4,13 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="pet_service">Pet Services</string>
-    <string name="pet_hospital">Pet Hospital</string>
+    <!--Tabs name-->
+    <string name="tab_service">Pet Services</string>
+    <string name="tab_hospital">Pet Hospital</string>
+    <string name="tab_info">INFO</string>
+    <string name="tab_review">REVIEW</string>
+    <string name="tab_location">LOCATION</string>
+
     <string name="likeLabel">Likes :</string>
 
     <string name="every_day">Every day</string>
@@ -21,12 +26,9 @@
     <string name="japanese" translatable="false">日本語</string>
     <string name="thai" translatable="false">ภาษาไทย</string>
     <string name="english" translatable="false">English</string>
-    <string name="model_name_store" translatable="false">Store</string>
+    <string name="model_name_services" translatable="false">Store</string>
     <string name="model_name_hospital" translatable="false">Hospital</string>
     <string name="error_invalid_service_type" translatable="false">INVALID_SERVICE_TYPE</string>
-    <string name="tab_info">INFO</string>
-    <string name="tab_review">REVIEW</string>
-    <string name="tab_location">LOCATION</string>
 
     <!--Days-->
     <string name="SUN">SUN</string>

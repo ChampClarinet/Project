@@ -3,7 +3,7 @@ package com.example.champ.project.Models;
 import java.io.Serializable;
 import java.util.Calendar;
 
-public class Store implements Serializable {
+public class Store implements Serializable, Comparable<Store> {
 
     private final int id;
     private String name;
@@ -83,6 +83,19 @@ public class Store implements Serializable {
         return priceRate;
     }
 
+    public String getPriceRateString() {
+        switch (priceRate) {
+            case 1:
+                return "$";
+            case 2:
+                return "$$";
+            case 3:
+                return "$$$";
+            default:
+                return null;
+        }
+    }
+
     public void setPriceRate(int priceRate) {
         this.priceRate = priceRate;
     }
@@ -141,6 +154,20 @@ public class Store implements Serializable {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getCoordinates() {
+        return latitude + ", " + longitude;
+    }
+
+    @Override
+    public String toString() {
+        return name + ": likes " + likes + " : price " + getPriceRateString() + " : location " + getCoordinates();
+    }
+
+    @Override
+    public int compareTo(Store o) {
+        return this.name.compareTo(o.getName());
     }
 
 }
