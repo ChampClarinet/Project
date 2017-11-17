@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:queryHint="@string/search"
+                app:defaultQueryHint="@string/search"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
@@ -96,8 +96,8 @@
             android:id="@+id/fab_sort_likes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:rippleColor="@color/colorPrimary"
             app:fab_icon="@drawable/dog_paw"
+            app:rippleColor="@color/colorPrimary"
             fab:fab_colorNormal="@color/colorAccent"
             fab:fab_colorPressed="@color/colorAccent_pressed"
             fab:fab_title="@string/sort_by_likes" />
@@ -108,9 +108,9 @@
             android:layout_height="wrap_content"
             android:tint="@color/colorPrimary"
             app:fab_icon="@drawable/ic_location_on_white_24dp"
+            app:fab_title="@string/sort_by_distance"
             fab:fab_colorNormal="@color/colorAccent"
-            fab:fab_colorPressed="@color/colorAccent_pressed"
-            app:fab_title="@string/sort_by_distance" />
+            fab:fab_colorPressed="@color/colorAccent_pressed" />
 
     </toan.android.floatingactionmenu.FloatingActionsMenu>
 

@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+        searchView.clearFocus();
 
         GPSTracker.getInstance(this);
 
@@ -49,6 +50,22 @@ public class MainActivity extends AppCompatActivity
 
         setNavBarAndActionBar();
         setPager();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        searchView.setFocusable(false);
+        searchView.setIconified(false);
+        searchView.clearFocus();
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                searchView.setIconified(false);
+                searchView.clearFocus();
+                return false;
+            }
+        });
     }
 
     private void setPager() {
