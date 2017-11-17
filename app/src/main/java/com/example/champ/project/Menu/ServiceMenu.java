@@ -3,7 +3,6 @@ package com.example.champ.project.Menu;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.example.champ.project.Database.DatabaseHelper;
 import com.example.champ.project.Models.PetService;
@@ -39,12 +38,12 @@ public class ServiceMenu {
         return mInstance;
     }
 
-    public static ArrayList<PetService> filter(ArrayList<PetService> source, String s){
+    public static ArrayList<PetService> filter(ArrayList<PetService> source, String s) {
         s = s.toLowerCase();
         ArrayList<PetService> out = new ArrayList<>();
-        for(PetService p : source){
+        for (PetService p : source) {
             String name = p.getName().toLowerCase();
-            if(name.contains(s)) out.add(p);
+            if (name.contains(s)) out.add(p);
         }
         return out;
     }

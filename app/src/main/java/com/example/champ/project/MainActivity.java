@@ -18,8 +18,6 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.example.champ.project.Adapters.ServiceRecyclerViewAdapter;
 import com.example.champ.project.Menu.ServiceMenu;
-import com.example.champ.project.MenuOld.HospitalMenu;
-import com.example.champ.project.MenuOld.ServiceMenu2;
 import com.example.champ.project.Utils.GPSTracker;
 
 import butterknife.BindView;
@@ -35,8 +33,6 @@ public class MainActivity extends AppCompatActivity
     DrawerLayout drawer;
     @BindView(R.id.searchView)
     SearchView searchView;
-    //@BindView(R.id.service_list_pager)
-    //ViewPager serviceListPager;
     @BindView(R.id.service_tabs)
     TabLayout serviceTabLayout;
     @BindView(R.id.rv_service)
@@ -46,10 +42,6 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.fab_sort_name)
     FloatingActionButton nameFab;
 
-    //private MainPagerAdapter adapter;
-
-    //    private ServiceMenu2 serviceMenu2;
-//    private HospitalMenu hospitalMenu;
     private ServiceMenu mServiceMenu;
 
     private ServiceRecyclerViewAdapter sAdapter;
@@ -77,7 +69,6 @@ public class MainActivity extends AppCompatActivity
         setRecyclerView();
         Log.d("DBtest", mServiceMenu.toString());
         //setFab();
-        //setPager();
     }
 
     /*private void setFab() {
@@ -166,14 +157,6 @@ public class MainActivity extends AppCompatActivity
         searchView.setOnQueryTextListener(this);
     }
 
-    /*
-        private void setPager() {
-            adapter = new MainPagerAdapter(getSupportFragmentManager());
-            serviceListPager.setAdapter(adapter);
-            serviceListPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(serviceTabLayout));
-            serviceTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(serviceListPager));
-        }
-    */
     private void setNavBarAndActionBar() {
 
         Toolbar toolbar = findViewById(R.id.main_toolbar);

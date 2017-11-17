@@ -25,19 +25,6 @@ public class PetService implements Serializable, Comparable<PetService> {
     private double longitude;
     private boolean isHospital;
 
-    /*
-    public PetService(int id, String name, String picturePath, int priceRate, int likes, double latitude, double longitude, boolean isHospital) {
-        this.id = id;
-        this.name = name;
-        this.picturePath = picturePath;
-        this.priceRate = priceRate;
-        this.likes = likes;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.isHospital = isHospital;
-    }
-*/
-
     public PetService(int id, String name, String picturePath, String telNo, int priceRate, int likes, boolean[] dayOpen, int hourOpen, int minuteOpen
             , int hourClose, int minuteClose, String description, double latitude, double longitude, boolean isHospital) {
         this.id = id;

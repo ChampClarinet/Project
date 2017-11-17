@@ -1,7 +1,6 @@
 package com.example.champ.project.Utils;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.example.champ.project.Models.PetService;
 
@@ -58,9 +57,6 @@ public class SortAgent {
     public static ArrayList<PetService> sortServiceByDistance(ArrayList<PetService> list) {
         Collections.sort(list, name);
         Collections.sort(list, distance);
-        /*String s = "sort\n";
-        for(PetService p : list) s += p.toString()+"\n";
-        Log.d("distSort", s);*/
         return list;
     }
 

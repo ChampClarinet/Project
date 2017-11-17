@@ -20,12 +20,11 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class StoreDescriptionFragment extends Fragment {
+public class StoreDescriptionFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = StoreDescriptionFragment.class.getSimpleName();
 
     private static final String ARG_STORE = "STORE";
-    private static final String ARG_IS_LIKED = "IS_LIKED";
 
     private PetService petService;
     private boolean isLiked;
@@ -64,8 +63,6 @@ public class StoreDescriptionFragment extends Fragment {
         StoreDescriptionFragment fragment = new StoreDescriptionFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_STORE, petService);
-        boolean isLiked = true;//Utils.getLikeCondition(petService.getId(), fragment.getContext());
-        args.putBoolean(ARG_IS_LIKED, isLiked);
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,7 +72,6 @@ public class StoreDescriptionFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             petService = (PetService) getArguments().getSerializable(ARG_STORE);
-            isLiked = getArguments().getBoolean(ARG_IS_LIKED);
         }
     }
 
@@ -95,15 +91,16 @@ public class StoreDescriptionFragment extends Fragment {
         String imgPath = petService.getPicturePath();
         storeImageView.setImageDrawable(Utils.getDrawableFromAssets(getContext(), imgPath));
         likesTextView.setText(Integer.toString(petService.getLikes()));
+        isLiked = Utils.getLikeCondition(petService.getId(), getActivity());
         if (isLiked) {
             likeImageView.setColorFilter(getContext().getResources().getColor(R.color.liked));
         }
         setDays();
         openTimeTextView.setText(getOpenTimeString(petService.getDayOpen(), petService.getTimeOpen(), petService.getTimeClose()));
-        //telTextView.setText(petService.getTelNo());
-        //descTextView.setText(petService.getDescription());
+        telTextView.setText(petService.getTelNo());
+        descTextView.setText(petService.getDescription());
 
-        //likeImageView.setOnClickListener(this);
+        likeImageView.setOnClickListener(this);
 
     }
 
@@ -147,19 +144,18 @@ public class StoreDescriptionFragment extends Fragment {
             }
         }
     }
-/*
+
     @Override
     public void onClick(View v) {
         if (isLiked) {
             isLiked = false;
             likeImageView.setColorFilter(getContext().getResources().getColor(R.color.icon));
-            Utils.unLike(petService.getId(), getActivity().getApplicationContext());
+            Utils.unLike(petService.getId(), getActivity());
         } else {
             isLiked = true;
             likeImageView.setColorFilter(getContext().getResources().getColor(R.color.liked));
-            Utils.like(petService.getId(), getActivity().getApplicationContext());
+            Utils.like(petService.getId(), getActivity());
         }
     }
-*/
 
 }

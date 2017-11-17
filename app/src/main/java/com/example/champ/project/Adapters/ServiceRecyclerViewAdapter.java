@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.champ.project.Menu.ServiceMenu;
-import com.example.champ.project.MenuOld.HospitalMenu;
-import com.example.champ.project.MenuOld.ServiceMenu2;
 import com.example.champ.project.Models.PetService;
 import com.example.champ.project.R;
 import com.example.champ.project.StoreActivity;

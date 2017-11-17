@@ -91,24 +91,6 @@ public class StoreLocationFragment extends Fragment implements OnMapReadyCallbac
         mGoogleMap.addMarker(new MarkerOptions().position(location).title(petService.getName()));
         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16));
-/*
-        Geocoder geocoder = new Geocoder(getContext());
-        List<Address> addresses = null;
-        String addressText = "";
-        try {
-            addresses = geocoder.getFromLocation(petService.getLatitude(), petService.getLongitude(), 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        if(addresses != null && addresses.size() > 0){
-            Address address = addresses.get(0);
-
-            addressText = String.format("%s, %s, %s",
-                    address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
-                    address.getLocality(),
-                    address.getCountryName());
-        }
-*/
     }
 }

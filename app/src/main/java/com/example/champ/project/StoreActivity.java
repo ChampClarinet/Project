@@ -10,8 +10,6 @@ import android.view.MenuItem;
 import com.example.champ.project.Adapters.StorePagerAdapter;
 import com.example.champ.project.Models.PetService;
 
-import java.util.Calendar;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

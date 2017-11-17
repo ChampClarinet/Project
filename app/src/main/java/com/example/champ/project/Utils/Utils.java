@@ -7,10 +7,6 @@ import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.example.champ.project.Database.DatabaseHelper;
@@ -20,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -75,11 +72,16 @@ public class Utils {
     public static boolean getLikeCondition(int serviceId, Context context) {
         DatabaseHelper mHelper = new DatabaseHelper(context);
         SQLiteDatabase db = mHelper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME_LIKES + " WHERE " + DatabaseHelper.COL_ID + " = " + serviceId, null);
-        if (cursor.getCount() == 0) {
-            return true;
+        Cursor cursor = db.query(DatabaseHelper.TABLE_NAME_LIKES, null, null, null, null, null, null);
+        ArrayList<Integer> likes = new ArrayList<>();
+        String s = "";
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COL_ID));
+            likes.add(id);
+            s += id + ", ";
         }
-        return false;
+        Log.d("query", s);
+        return likes.contains(serviceId);
     }
 
     public static void like(int serviceId, Context context) {
