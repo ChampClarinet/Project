@@ -13,13 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.champ.project.Adapters.MainPagerAdapter;
-import com.example.champ.project.Interfaces.Filterable;
+import com.example.champ.project.Utils.GPSTracker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity
 
     private MainPagerAdapter adapter;
 
-    private int sortBy;
     private String defaultLanguage;
 
     @Override
@@ -43,6 +42,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+        GPSTracker.getInstance(this);
 
         //Utils.setLanguage();
 
@@ -69,14 +70,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        searchView.setOnQueryTextListener(this);
-
     }
 
     @Override
@@ -111,19 +104,6 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        int currentTab = serviceListPager.getCurrentItem();
-        Filterable f = (Filterable) adapter.getItem(currentTab);
-        f.filter(newText);
-        return false;
     }
 
 }

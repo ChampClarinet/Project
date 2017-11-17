@@ -3,6 +3,7 @@ package com.example.champ.project.Adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v7.widget.SearchView;
 
 import com.example.champ.project.Fragments.PetHospitalListFragment;
 import com.example.champ.project.Fragments.PetServiceListFragment;

@@ -1,5 +1,12 @@
 package com.example.champ.project.Models;
 
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.example.champ.project.Utils.GPSTracker;
+
 import java.io.Serializable;
 import java.util.Calendar;
 
@@ -160,9 +167,22 @@ public class Store implements Serializable, Comparable<Store> {
         return latitude + ", " + longitude;
     }
 
+    @NonNull
+    public Float getDistance() {
+        Location location = new Location(LocationManager.GPS_PROVIDER);
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+        GPSTracker tracker = GPSTracker.getInstance();
+        Location here = new Location(LocationManager.GPS_PROVIDER);
+        here.setLatitude(tracker.getLatitude());
+        here.setLongitude(tracker.getLongitude());
+        tracker.stopUsingGPS();
+        return location.distanceTo(here);
+    }
+
     @Override
     public String toString() {
-        return name + ": likes " + likes + " : price " + getPriceRateString() + " : location " + getCoordinates();
+        return name + ": likes " + likes + " : price " + getPriceRateString() + " : location " + getCoordinates() + " : " + getDistance() + " m from here";
     }
 
     @Override

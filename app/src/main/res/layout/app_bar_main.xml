@@ -103,14 +103,14 @@
             fab:fab_title="@string/sort_by_likes" />
 
         <toan.android.floatingactionmenu.FloatingActionButton
-            android:id="@+id/fab_sort_location"
+            android:id="@+id/fab_sort_distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:tint="@color/colorPrimary"
             app:fab_icon="@drawable/ic_location_on_white_24dp"
             fab:fab_colorNormal="@color/colorAccent"
             fab:fab_colorPressed="@color/colorAccent_pressed"
-            fab:fab_title="@string/sort_by_location" />
+            app:fab_title="@string/sort_by_distance" />
 
     </toan.android.floatingactionmenu.FloatingActionsMenu>
 

@@ -30,12 +30,14 @@ public class SortAgent {
             return o1.getLikes() - o2.getLikes();
         }
     };
-    /*private static Comparator<Store> location = new Comparator<Store>() {
+    private static Comparator<Store> distance = new Comparator<Store>() {
         @Override
         public int compare(Store o1, Store o2) {
-            return o1.getName().compareTo(o2.getName());
+            Float d1 = o1.getDistance();
+            Float d2 = o2.getDistance();
+            return d1.compareTo(d2);
         }
-    };*/
+    };
 
     public static ArrayList<Store> sortServiceByName(HashMap<Integer, Store> hash) {
         ArrayList<Store> list = toArrayList(hash);
@@ -43,13 +45,13 @@ public class SortAgent {
         return list;
     }
 
-    /*
     public static ArrayList<Store> sortServiceByDistance(HashMap<Integer, Store> hash) {
-        ArrayList list = toArrayList(hash);
-        list.sort(location);
+        ArrayList<Store> list = toArrayList(hash);
+        Collections.sort(list, name);
+        Collections.sort(list, distance);
         return list;
     }
-     */
+
     public static ArrayList<Store> sortServiceByPriceRate(HashMap<Integer, Store> hash) {
         ArrayList<Store> list = toArrayList(hash);
         Collections.sort(list, name);

@@ -1,6 +1,8 @@
 package com.example.champ.project.Menu;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.example.champ.project.Models.Store;
 import com.example.champ.project.Utils.SortAgent;
@@ -11,6 +13,10 @@ import java.util.HashMap;
 public class ServiceMenu {
 
     private static final String TAG = ServiceMenu.class.getSimpleName();
+    public static final String SORT_BY_NAME = "NAME";
+    public static final String SORT_BY_LOCATION = "LOCATION";
+    public static final String SORT_BY_LIKES = "LIKES";
+    public static final String SORT_BY_PRICE_RATE = "PRICE";
 
     private static ServiceMenu instance;
     private static ArrayList<Store> listById = new ArrayList<>();
@@ -42,24 +48,35 @@ public class ServiceMenu {
         listByName = SortAgent.sortServiceByName(serviceHash);
         listByPriceRate = SortAgent.sortServiceByPriceRate(serviceHash);
         listByLikes = SortAgent.sortServiceByLikes(serviceHash);
-        //listByLocation = SortAgent.sortServiceByLocation(serviceHash);
+        listByLocation = SortAgent.sortServiceByDistance(serviceHash);
     }
 
     public Store findServiceById(int id) {
         return serviceHash.get(id);
     }
 
-    public ArrayList<Store> getServiceList() {
-        return listById;
+    public ArrayList<Store> getServiceList(String sortBy) {
+        switch (sortBy){
+            case SORT_BY_NAME: return listByName;
+            case SORT_BY_LIKES: return listByLikes;
+            case SORT_BY_LOCATION: return listByLocation;
+            case SORT_BY_PRICE_RATE: return listByPriceRate;
+            default: return listById;
+        }
     }
 
-    public ArrayList<Store> getFilteredServiceList(String query) {
+    public ArrayList<Store> getFilteredServiceList(@Nullable String query) {
         query = query.toLowerCase();
         ArrayList<Store> out = new ArrayList<>();
         for (Store s : listById) {
             String name = s.getName().toLowerCase();
             if (name.contains(query)) out.add(s);
         }
+        String s = "";
+        for (Store store : out) {
+            s += store.getName() + "\n";
+        }
+        Log.d("list", s);
         return out;
     }
 
@@ -82,7 +99,7 @@ public class ServiceMenu {
 
     @Override
     public String toString() {
-        return ServiceMenu.class.getSimpleName() + ": Service quantity " + getServiceList().size();
+        return ServiceMenu.class.getSimpleName() + ": Service quantity " + getServiceList(null).size();
     }
 
 

@@ -52,6 +52,6 @@
     <string name="sort_by_name">name</string>
     <string name="sort_by_likes">likes</string>
     <string name="sort_by_price_rate">price rate</string>
-    <string name="sort_by_location">location</string>
+    <string name="sort_by_distance">distance</string>
 
 </resources>

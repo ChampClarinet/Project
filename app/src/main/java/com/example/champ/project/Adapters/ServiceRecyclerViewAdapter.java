@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,11 +25,13 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
     private ArrayList<Store> cardList;
     private Context context;
     private String serviceType;
+    private SearchView searchView;
 
-    public ServiceRecyclerViewAdapter(ArrayList<Store> cardList, Context context, String serviceType) {
+    public ServiceRecyclerViewAdapter(ArrayList<Store> cardList, Context context, String serviceType, SearchView searchView) {
         this.cardList = cardList;
         this.context = context;
         this.serviceType = serviceType;
+        this.searchView = searchView;
     }
 
     @Override
@@ -122,10 +125,11 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
     }
 
     public void updateList(ArrayList<Store> newList) {
-        if(newList != null){
+        if (newList != null) {
             cardList = newList;
             notifyDataSetChanged();
         }
+        Log.d("Recycler", printList());
     }
 
     private String printList() {
