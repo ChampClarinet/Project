@@ -1,14 +1,19 @@
 package com.example.champ.project.Utils;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.example.champ.project.Database.DatabaseHelper;
 import com.example.champ.project.R;
 
 import java.io.FileInputStream;
@@ -65,6 +70,32 @@ public class Utils {
                 break;
         }
         return hour;
+    }
+
+    public static boolean getLikeCondition(int serviceId, Context context) {
+        DatabaseHelper mHelper = new DatabaseHelper(context);
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME_LIKES + " WHERE " + DatabaseHelper.COL_ID + " = " + serviceId, null);
+        if (cursor.getCount() == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public static void like(int serviceId, Context context) {
+        DatabaseHelper mHelper = new DatabaseHelper(context);
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        if (!getLikeCondition(serviceId, context)) {
+            ContentValues cv = new ContentValues();
+            cv.put(DatabaseHelper.COL_ID, serviceId);
+            db.insert(DatabaseHelper.TABLE_NAME_LIKES, null, cv);
+        }
+    }
+
+    public static void unLike(int serviceId, Context context) {
+        DatabaseHelper mHelper = new DatabaseHelper(context);
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        db.delete(DatabaseHelper.TABLE_NAME_LIKES, DatabaseHelper.COL_ID + " = " + serviceId, null);
     }
 
     public static void setLanguage(Context context) {

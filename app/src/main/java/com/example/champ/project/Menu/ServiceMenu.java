@@ -1,10 +1,12 @@
 package com.example.champ.project.Menu;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.champ.project.Models.Store;
+import com.example.champ.project.Database.DatabaseHelper;
+import com.example.champ.project.Models.PetService;
 import com.example.champ.project.Utils.SortAgent;
 
 import java.util.ArrayList;
@@ -12,95 +14,136 @@ import java.util.HashMap;
 
 public class ServiceMenu {
 
-    private static final String TAG = ServiceMenu.class.getSimpleName();
     public static final String SORT_BY_NAME = "NAME";
-    public static final String SORT_BY_LOCATION = "LOCATION";
+    public static final String SORT_BY_DISTANCE = "DIST";
     public static final String SORT_BY_LIKES = "LIKES";
     public static final String SORT_BY_PRICE_RATE = "PRICE";
 
-    private static ServiceMenu instance;
-    private static ArrayList<Store> listById = new ArrayList<>();
-    private static ArrayList<Store> listByName = new ArrayList<>();
-    private static ArrayList<Store> listByPriceRate = new ArrayList<>();
-    private static ArrayList<Store> listByLikes = new ArrayList<>();
-    private static ArrayList<Store> listByLocation = new ArrayList<>();
-    private static HashMap<Integer, Store> serviceHash = new HashMap<>();
+    private static final String TAG = ServiceMenu.class.getSimpleName();
 
-    private Context context;
+    private static SQLiteDatabase db;
+    private static DatabaseHelper mHelper;
+
+    private static ServiceMenu mInstance;
+    private static Context context;
+
+    private static HashMap<Integer, PetService> list = new HashMap<>();
+
+    public ServiceMenu(Context context) {
+        this.context = context;
+        loadFromDatabase();
+    }
 
     public static ServiceMenu getInstance(Context context) {
-        if (instance == null) instance = new ServiceMenu(context);
-        instance.loadFromDatabase();
-        return instance;
+        if (mInstance == null) mInstance = new ServiceMenu(context);
+        return mInstance;
     }
 
-    private ServiceMenu(Context context) {
-        this.context = context;
-    }
-
-    public void loadFromDatabase() {
-        listById.clear();
-        listById.add(new Store(1, "ABC Pet Shop", null, 3, 42, 13.7124214, 100.52708480000001));
-        listById.add(new Store(2, "RotFai Dog", null, 1, 347, 13.7124214, 100.52708480000001));
-        listById.add(new Store(3, "Navamin Cat", null, 2, 214, 13.8263031, 100.67894260000003));
-        listById.add(new Store(4, "Blah Blah Blah Bird", null, 1, 578, 13.7574965, 100.4438738));
-        for (Store s : listById) serviceHash.put(s.getId(), s);
-        listByName = SortAgent.sortServiceByName(serviceHash);
-        listByPriceRate = SortAgent.sortServiceByPriceRate(serviceHash);
-        listByLikes = SortAgent.sortServiceByLikes(serviceHash);
-        listByLocation = SortAgent.sortServiceByDistance(serviceHash);
-    }
-
-    public Store findServiceById(int id) {
-        return serviceHash.get(id);
-    }
-
-    public ArrayList<Store> getServiceList(String sortBy) {
-        switch (sortBy){
-            case SORT_BY_NAME: return listByName;
-            case SORT_BY_LIKES: return listByLikes;
-            case SORT_BY_LOCATION: return listByLocation;
-            case SORT_BY_PRICE_RATE: return listByPriceRate;
-            default: return listById;
+    public static ArrayList<PetService> filter(ArrayList<PetService> source, String s){
+        s = s.toLowerCase();
+        ArrayList<PetService> out = new ArrayList<>();
+        for(PetService p : source){
+            String name = p.getName().toLowerCase();
+            if(name.contains(s)) out.add(p);
         }
-    }
-
-    public ArrayList<Store> getFilteredServiceList(@Nullable String query) {
-        query = query.toLowerCase();
-        ArrayList<Store> out = new ArrayList<>();
-        for (Store s : listById) {
-            String name = s.getName().toLowerCase();
-            if (name.contains(query)) out.add(s);
-        }
-        String s = "";
-        for (Store store : out) {
-            s += store.getName() + "\n";
-        }
-        Log.d("list", s);
         return out;
     }
 
-    public void checkList() {
-        System.out.println("by Name");
-        for (Store s : listByName) {
-            System.out.println(s);
+    public PetService getById(int id) {
+        return list.get(id);
+    }
+
+    public ArrayList<PetService> getHospitalList(String orderBy) {
+        ArrayList<PetService> out = new ArrayList<>();
+        for (int key : list.keySet()) {
+            PetService p = list.get(key);
+            if (p.isHospital()) out.add(p);
         }
-        System.out.println();
-        System.out.println("by Price rate");
-        for (Store s : listByPriceRate) {
-            System.out.println(s);
+        return sort(out, orderBy);
+    }
+
+    public ArrayList<PetService> getServiceList(String orderBy) {
+        ArrayList<PetService> out = new ArrayList<>();
+        for (int key : list.keySet()) {
+            PetService p = list.get(key);
+            if (!p.isHospital()) out.add(p);
         }
-        System.out.println();
-        System.out.println("by Likes");
-        for (Store s : listByLikes) {
-            System.out.println(s);
+        return sort(out, orderBy);
+    }
+
+    private ArrayList<PetService> sort(ArrayList<PetService> out, String orderBy) {
+        //Log.d("sort", "sort by "+orderBy);
+        switch (orderBy) {
+            case SORT_BY_NAME:
+                return SortAgent.sortServiceByName(out);
+            case SORT_BY_PRICE_RATE:
+                return SortAgent.sortServiceByPriceRate(out);
+            case SORT_BY_LIKES:
+                return SortAgent.sortServiceByLikes(out);
+            case SORT_BY_DISTANCE:
+                return SortAgent.sortServiceByDistance(out);
+            default:
+                return out;
         }
+    }
+
+    /*
+        public ArrayList<PetService> filterAnimal(String animal){
+        }
+    */
+    private void loadFromDatabase() {
+        mHelper = new DatabaseHelper(context);
+        db = mHelper.getWritableDatabase();
+        query();
+    }
+
+    private void query() {
+        Cursor cursor = db.query(DatabaseHelper.TABLE_NAME_SERVICE, null, null, null, null, null, null);
+        while (cursor.moveToNext()) {
+            PetService p = cursorToObject(cursor);
+            list.put(p.getId(), p);
+        }
+        cursor.close();
+    }
+
+    private PetService cursorToObject(Cursor cursor) {
+        int id = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COL_ID));
+        String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_NAME));
+        String pic = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_PICTURE));
+        String tel = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TEL));
+        int priceRate = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COL_PRICE_RATE));
+        int likes = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COL_LIKE));
+        String dayOpen = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DAY_OPEN));
+        String timeOpen = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TIME_OPEN));
+        int hOpen = -1;
+        int mOpen = -1;
+        if (!timeOpen.equalsIgnoreCase("nope")) {
+            hOpen = Integer.parseInt(timeOpen.substring(0, 2));
+            mOpen = Integer.parseInt(timeOpen.substring(2));
+        }
+        String timeClose = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TIME_CLOSE));
+        int hClose = -1;
+        int mClose = -1;
+        if (!timeOpen.equalsIgnoreCase("nope")) {
+            hClose = Integer.parseInt(timeOpen.substring(0, 2));
+            mClose = Integer.parseInt(timeOpen.substring(2));
+        }
+        String desc = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DESC));
+        double lat = cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.COL_LATITUDE));
+        double lon = cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.COL_LONGITUDE));
+        boolean isHospital = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COL_IS_HOSPITAL)) == 1;
+        //String availableFor = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_AVAILABLE_FOR));
+        return new PetService(id, name, pic, tel, priceRate, likes, dayOpen, hOpen, mOpen, hClose, mClose, desc, lat, lon, isHospital);
     }
 
     @Override
     public String toString() {
-        return ServiceMenu.class.getSimpleName() + ": Service quantity " + getServiceList(null).size();
+        String s = "";
+        for (int key : list.keySet()) {
+            s += list.get(key) + "\n";
+        }
+        if (s.length() > 0) return s;
+        return "error can't get data";
     }
-
 
 }

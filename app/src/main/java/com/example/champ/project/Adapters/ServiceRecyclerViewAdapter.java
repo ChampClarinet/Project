@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.champ.project.Menu.HospitalMenu;
 import com.example.champ.project.Menu.ServiceMenu;
-import com.example.champ.project.Models.Store;
+import com.example.champ.project.MenuOld.HospitalMenu;
+import com.example.champ.project.MenuOld.ServiceMenu2;
+import com.example.champ.project.Models.PetService;
 import com.example.champ.project.R;
 import com.example.champ.project.StoreActivity;
 
@@ -22,34 +22,34 @@ import java.util.ArrayList;
 
 public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecyclerViewAdapter.GenericHolder> {
 
-    private ArrayList<Store> cardList;
+    private ArrayList<PetService> dataSet;
     private Context context;
-    private String serviceType;
-    private SearchView searchView;
 
-    public ServiceRecyclerViewAdapter(ArrayList<Store> cardList, Context context, String serviceType, SearchView searchView) {
-        this.cardList = cardList;
+    public ServiceRecyclerViewAdapter(ArrayList<PetService> dataSet, Context context) {
+        this.dataSet = dataSet;
         this.context = context;
-        this.serviceType = serviceType;
-        this.searchView = searchView;
     }
 
     @Override
     public GenericHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_layout, parent, false);
-        ViewHolder holder = new ViewHolder(v, context, serviceType);
+        ViewHolder holder = new ViewHolder(v, context);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(GenericHolder holder, int position) {
-        Store store = cardList.get(position);
-        holder.setViewData(store);
+        PetService petService = dataSet.get(position);
+        holder.setViewData(petService);
     }
 
     @Override
     public int getItemCount() {
-        return cardList.size();
+        return dataSet.size();
+    }
+
+    public ArrayList<PetService> getData(){
+        return dataSet;
     }
 
     public abstract static class GenericHolder extends RecyclerView.ViewHolder {
@@ -58,7 +58,7 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
             super(itemView);
         }
 
-        abstract public void setViewData(Store store);
+        abstract public void setViewData(PetService petService);
 
     }
 
@@ -73,12 +73,9 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
         private ImageView rate3;
         private Context context;
 
-        private String serviceType;
-
-        public ViewHolder(View itemView, Context context, String serviceType) {
+        public ViewHolder(View itemView, Context context) {
             super(itemView);
             this.context = context;
-            this.serviceType = serviceType;
             cardView = itemView.findViewById(R.id.cv);
             name = itemView.findViewById(R.id.cv_name);
             likes = itemView.findViewById(R.id.cv_likes);
@@ -89,32 +86,28 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
         }
 
         private void openStoreActivity(int id) throws Exception {
-            Store store;
-            if (serviceType.equals(context.getString(R.string.model_name_hospital)))
-                store = HospitalMenu.getInstance(context).findHospitalById(id);
-            else if (serviceType.equals(context.getString(R.string.model_name_services)))
-                store = ServiceMenu.getInstance(context).findServiceById(id);
-            else throw new Exception(context.getString(R.string.error_invalid_service_type));
+            ServiceMenu menu = ServiceMenu.getInstance(context);
+            PetService petService = menu.getById(id);
             Intent i = new Intent(context, StoreActivity.class);
-            i.putExtra(context.getString(R.string.model_name_services), store);
+            i.putExtra(context.getString(R.string.model_name_services), petService);
             context.startActivity(i);
         }
 
         @Override
-        public void setViewData(final Store store) {
-            String s = Integer.toString(store.getLikes());
-            this.name.setText(store.getName());
+        public void setViewData(final PetService petService) {
+            String s = Integer.toString(petService.getLikes());
+            this.name.setText(petService.getName());
             this.likes.setText(s);
-            //photo.setImageDrawable(Utils.getDrawableFromAssets(context, store.getPicturePath()));
+            //photo.setImageDrawable(Utils.getDrawableFromAssets(context, petService.getPicturePath()));
             photo.setImageResource(R.drawable.ic_launcher);
-            int priceRate = store.getPriceRate();
+            int priceRate = petService.getPriceRate();
             if (priceRate == 2 || priceRate == 3) rate2.setVisibility(View.VISIBLE);
             if (priceRate == 3) rate3.setVisibility(View.VISIBLE);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     try {
-                        openStoreActivity(store.getId());
+                        openStoreActivity(petService.getId());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -124,9 +117,9 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
 
     }
 
-    public void updateList(ArrayList<Store> newList) {
+    public void updateList(ArrayList<PetService> newList) {
         if (newList != null) {
-            cardList = newList;
+            dataSet = newList;
             notifyDataSetChanged();
         }
         Log.d("Recycler", printList());
@@ -134,7 +127,7 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
 
     private String printList() {
         String out = "";
-        for (Store s : cardList) out += s.getName() + ", ";
+        for (PetService s : dataSet) out += s.getName() + ", ";
         return out;
     }
 

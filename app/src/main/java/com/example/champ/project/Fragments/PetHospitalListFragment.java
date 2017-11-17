@@ -1,28 +1,7 @@
 package com.example.champ.project.Fragments;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.champ.project.Adapters.ServiceRecyclerViewAdapter;
-import com.example.champ.project.Menu.HospitalMenu;
-import com.example.champ.project.Models.Store;
-import com.example.champ.project.R;
-
-import java.util.ArrayList;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-public class PetHospitalListFragment extends Fragment implements SearchView.OnQueryTextListener {
-
+public class PetHospitalListFragment /*extends Fragment implements SearchView.OnQueryTextListener */{
+/*
     private static final String TAG = PetHospitalListFragment.class.getSimpleName();
 
     @BindView(R.id.rv_hospital)
@@ -59,7 +38,7 @@ public class PetHospitalListFragment extends Fragment implements SearchView.OnQu
         searchView.setOnQueryTextListener(this);
         mRecyclerViewHospital.setHasFixedSize(true);
         mRecyclerViewHospital.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ServiceRecyclerViewAdapter(menu.getHospitalList(HospitalMenu.SORT_BY_LOCATION), getContext(), getString(R.string.model_name_hospital), (SearchView) getActivity().findViewById(R.id.searchView));
+        adapter = new ServiceRecyclerViewAdapter(menu.getHospitalList(HospitalMenu.SORT_BY_DISTANCE), getContext(), getString(R.string.model_name_hospital), (SearchView) getActivity().findViewById(R.id.searchView));
         mRecyclerViewHospital.setAdapter(adapter);
     }
 
@@ -70,9 +49,9 @@ public class PetHospitalListFragment extends Fragment implements SearchView.OnQu
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        ArrayList<Store> newList = menu.getFilteredHospitalList(newText);
+        ArrayList<PetService> newList = menu.getFilteredHospitalList(newText);
         adapter.updateList(newList);
         return false;
     }
-
+*/
 }

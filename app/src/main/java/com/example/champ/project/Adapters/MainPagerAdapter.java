@@ -8,8 +8,8 @@ import android.support.v7.widget.SearchView;
 import com.example.champ.project.Fragments.PetHospitalListFragment;
 import com.example.champ.project.Fragments.PetServiceListFragment;
 
-public class MainPagerAdapter extends FragmentPagerAdapter{
-
+public class MainPagerAdapter/* extends FragmentPagerAdapter*/{
+/*
     public MainPagerAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -27,4 +27,5 @@ public class MainPagerAdapter extends FragmentPagerAdapter{
     public int getCount() {
         return 2;
     }
+*/
 }

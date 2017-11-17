@@ -3,14 +3,13 @@ package com.example.champ.project.Models;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.example.champ.project.Utils.GPSTracker;
 
 import java.io.Serializable;
 import java.util.Calendar;
 
-public class Store implements Serializable, Comparable<Store> {
+public class PetService implements Serializable, Comparable<PetService> {
 
     private final int id;
     private String name;
@@ -18,14 +17,16 @@ public class Store implements Serializable, Comparable<Store> {
     private String telNo;
     private int priceRate;
     private int likes;
-    boolean[] dayOpen; //true at [0] for everyday open, 1 for Sunday, 2 for Tuesday etc.
-    Calendar timeOpen;
-    Calendar timeClose;
+    private boolean[] dayOpen; //true at [0] for everyday open, 1 for Sunday, 2 for Tuesday etc.
+    private Calendar timeOpen;
+    private Calendar timeClose;
     private String description;
     private double latitude;
     private double longitude;
+    private boolean isHospital;
 
-    public Store(int id, String name, String picturePath, int priceRate, int likes, double latitude, double longitude) {
+    /*
+    public PetService(int id, String name, String picturePath, int priceRate, int likes, double latitude, double longitude, boolean isHospital) {
         this.id = id;
         this.name = name;
         this.picturePath = picturePath;
@@ -33,10 +34,12 @@ public class Store implements Serializable, Comparable<Store> {
         this.likes = likes;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.isHospital = isHospital;
     }
+*/
 
-    public Store(int id, String name, String picturePath, String telNo, int priceRate, int likes, boolean[] dayOpen, int hourOpen, int minuteOpen
-            , int hourClose, int minuteClose, String description, double latitude, double longitude) {
+    public PetService(int id, String name, String picturePath, String telNo, int priceRate, int likes, boolean[] dayOpen, int hourOpen, int minuteOpen
+            , int hourClose, int minuteClose, String description, double latitude, double longitude, boolean isHospital) {
         this.id = id;
         this.name = name;
         this.picturePath = picturePath;
@@ -56,7 +59,57 @@ public class Store implements Serializable, Comparable<Store> {
         this.description = description;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.isHospital = isHospital;
     }
+
+    public PetService(int id, String name, String picturePath, String telNo, int priceRate, int likes, String dayOpen, int hourOpen, int minuteOpen
+            , int hourClose, int minuteClose, String description, double latitude, double longitude, boolean isHospital) {
+        this.id = id;
+        this.name = name;
+        this.picturePath = picturePath;
+        this.telNo = telNo;
+        this.priceRate = priceRate;
+        this.likes = likes;
+        setDayOpen(dayOpen);
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(Calendar.HOUR_OF_DAY, hourOpen);
+        calendar.set(Calendar.MINUTE, minuteOpen);
+        this.timeOpen = calendar;
+        calendar.clear();
+        calendar.set(Calendar.HOUR_OF_DAY, hourClose);
+        calendar.set(Calendar.MINUTE, minuteClose);
+        this.timeClose = calendar;
+        this.description = description;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.isHospital = isHospital;
+    }
+
+    @NonNull
+    public Float getDistance() {
+        Location location = new Location(LocationManager.GPS_PROVIDER);
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+        GPSTracker tracker = GPSTracker.getInstance();
+        Location here = new Location(LocationManager.GPS_PROVIDER);
+        here.setLatitude(tracker.getLatitude());
+        here.setLongitude(tracker.getLongitude());
+        tracker.stopUsingGPS();
+        return location.distanceTo(here);
+    }
+
+    @Override
+    public String toString() {
+        return "#" + id + " " + name + ": likes " + likes + " : price " + getPriceRateString() + " : location " + getCoordinates() + " : " + getDistance() + " m from here";
+    }
+
+    @Override
+    public int compareTo(PetService o) {
+        return this.name.compareTo(o.getName());
+    }
+
+    //getters and setters
 
     public int getId() {
         return id;
@@ -119,8 +172,28 @@ public class Store implements Serializable, Comparable<Store> {
         return dayOpen;
     }
 
+    public String getDayOpenString() {
+        StringBuilder s = new StringBuilder();
+        for (boolean b : dayOpen) {
+            if (b) s.append("1");
+            else s.append("2");
+        }
+        return s.toString();
+    }
+
     public void setDayOpen(boolean[] dayOpen) {
         this.dayOpen = dayOpen;
+    }
+
+    public void setDayOpen(String dayOpen) {
+        this.dayOpen = new boolean[8];
+        if (dayOpen.charAt(0) == '1') {
+            this.dayOpen[0] = true;
+        } else if (dayOpen.length() == 8) {
+            for (int i = 0; i < dayOpen.length(); ++i) {
+                this.dayOpen[i] = dayOpen.charAt(i) == '1';
+            }
+        }
     }
 
     public Calendar getTimeOpen() {
@@ -167,27 +240,12 @@ public class Store implements Serializable, Comparable<Store> {
         return latitude + ", " + longitude;
     }
 
-    @NonNull
-    public Float getDistance() {
-        Location location = new Location(LocationManager.GPS_PROVIDER);
-        location.setLatitude(latitude);
-        location.setLongitude(longitude);
-        GPSTracker tracker = GPSTracker.getInstance();
-        Location here = new Location(LocationManager.GPS_PROVIDER);
-        here.setLatitude(tracker.getLatitude());
-        here.setLongitude(tracker.getLongitude());
-        tracker.stopUsingGPS();
-        return location.distanceTo(here);
+    public boolean isHospital() {
+        return isHospital;
     }
 
-    @Override
-    public String toString() {
-        return name + ": likes " + likes + " : price " + getPriceRateString() + " : location " + getCoordinates() + " : " + getDistance() + " m from here";
-    }
-
-    @Override
-    public int compareTo(Store o) {
-        return this.name.compareTo(o.getName());
+    public void setHospital(boolean hospital) {
+        isHospital = hospital;
     }
 
 }

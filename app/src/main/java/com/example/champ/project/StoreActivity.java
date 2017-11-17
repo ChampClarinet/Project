@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.champ.project.Adapters.StorePagerAdapter;
-import com.example.champ.project.Models.Store;
+import com.example.champ.project.Models.PetService;
 
 import java.util.Calendar;
 
@@ -22,17 +22,17 @@ public class StoreActivity extends AppCompatActivity {
     @BindView(R.id.store_tabs)
     TabLayout tabLayout;
 
-    private Store store;
+    private PetService petService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
 
-        store = (Store) getIntent().getSerializableExtra(getString(R.string.model_name_services));
+        petService = (PetService) getIntent().getSerializableExtra(getString(R.string.model_name_services));
 
         Toolbar toolbar = findViewById(R.id.store_toolbar);
-        toolbar.setTitle(store.getName());
+        toolbar.setTitle(petService.getName());
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
@@ -49,20 +49,6 @@ public class StoreActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        //set dummy value
-        boolean[] days = {false, true, true, true, false, true, false, true, false};
-        store.setDayOpen(days);
-        Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.set(Calendar.MINUTE, 0);
-        store.setTimeOpen(calendar);
-        Calendar calendar2 = Calendar.getInstance();
-        calendar2.clear();
-        calendar2.set(Calendar.HOUR_OF_DAY, 20);
-        calendar2.set(Calendar.MINUTE, 0);
-        store.setTimeClose(calendar2);
-
         setPager();
 
     }
@@ -75,7 +61,7 @@ public class StoreActivity extends AppCompatActivity {
     }
 
     private void setPager(){
-        StorePagerAdapter adapter = new StorePagerAdapter(store, getSupportFragmentManager());
+        StorePagerAdapter adapter = new StorePagerAdapter(petService, getSupportFragmentManager());
         pager.setAdapter(adapter);
     }
 

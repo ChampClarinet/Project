@@ -1,28 +1,7 @@
 package com.example.champ.project.Fragments;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.champ.project.Adapters.ServiceRecyclerViewAdapter;
-import com.example.champ.project.Menu.ServiceMenu;
-import com.example.champ.project.Models.Store;
-import com.example.champ.project.R;
-
-import java.util.ArrayList;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-public class PetServiceListFragment extends Fragment implements SearchView.OnQueryTextListener {
-
+public class PetServiceListFragment/* extends Fragment implements SearchView.OnQueryTextListener */{
+/*
     private static final String TAG = PetServiceListFragment.class.getSimpleName();
 
     @BindView(R.id.rv_service)
@@ -30,10 +9,10 @@ public class PetServiceListFragment extends Fragment implements SearchView.OnQue
 
     private ServiceRecyclerViewAdapter adapter;
     private SearchView searchView;
-    private ServiceMenu menu;
+    private ServiceMenu2 menu;
 
     public PetServiceListFragment() {
-        menu = ServiceMenu.getInstance(getContext());
+        menu = ServiceMenu2.getInstance(getContext());
     }
 
     public static PetServiceListFragment newInstance() {
@@ -59,7 +38,7 @@ public class PetServiceListFragment extends Fragment implements SearchView.OnQue
         searchView.setOnQueryTextListener(this);
         mRecyclerViewService.setHasFixedSize(true);
         mRecyclerViewService.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ServiceRecyclerViewAdapter(menu.getServiceList(ServiceMenu.SORT_BY_LOCATION), getContext(), getString(R.string.model_name_services), (android.support.v7.widget.SearchView) getActivity().findViewById(R.id.searchView));
+        adapter = new ServiceRecyclerViewAdapter(menu.getServiceList(ServiceMenu2.SORT_BY_DISTANCE), getContext(), getString(R.string.model_name_services), (android.support.v7.widget.SearchView) getActivity().findViewById(R.id.searchView));
         mRecyclerViewService.setAdapter(adapter);
     }
 
@@ -70,9 +49,9 @@ public class PetServiceListFragment extends Fragment implements SearchView.OnQue
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        ArrayList<Store> newList = ServiceMenu.getInstance(getContext()).getFilteredServiceList(newText);
+        ArrayList<PetService> newList = ServiceMenu2.getInstance(getContext()).getFilteredServiceList(newText);
         adapter.updateList(newList);
         return false;
     }
-
+*/
 }

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.champ.project.Models.Store;
+import com.example.champ.project.Models.PetService;
 import com.example.champ.project.R;
 import com.example.champ.project.Utils.Utils;
 
@@ -25,9 +25,9 @@ public class StoreDescriptionFragment extends Fragment {
     private static final String TAG = StoreDescriptionFragment.class.getSimpleName();
 
     private static final String ARG_STORE = "STORE";
-    private static final String ARG_IS_LIKE = "IS_LIKE";
+    private static final String ARG_IS_LIKED = "IS_LIKED";
 
-    private Store store;
+    private PetService petService;
     private boolean isLiked;
 
     @BindView(R.id.imageview_store)
@@ -60,12 +60,12 @@ public class StoreDescriptionFragment extends Fragment {
     public StoreDescriptionFragment() {
     }
 
-    public static StoreDescriptionFragment newInstance(Store store) {
+    public static StoreDescriptionFragment newInstance(PetService petService) {
         StoreDescriptionFragment fragment = new StoreDescriptionFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_STORE, store);
-        boolean isLike = true; //get islike from database
-        args.putBoolean(ARG_IS_LIKE, isLike);
+        args.putSerializable(ARG_STORE, petService);
+        boolean isLiked = true;//Utils.getLikeCondition(petService.getId(), fragment.getContext());
+        args.putBoolean(ARG_IS_LIKED, isLiked);
         fragment.setArguments(args);
         return fragment;
     }
@@ -74,9 +74,37 @@ public class StoreDescriptionFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            store = (Store) getArguments().getSerializable(ARG_STORE);
-            isLiked = getArguments().getBoolean(ARG_IS_LIKE);
+            petService = (PetService) getArguments().getSerializable(ARG_STORE);
+            isLiked = getArguments().getBoolean(ARG_IS_LIKED);
         }
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_store_description, container, false);
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ButterKnife.bind(this, view);
+
+        String imgPath = petService.getPicturePath();
+        storeImageView.setImageDrawable(Utils.getDrawableFromAssets(getContext(), imgPath));
+        likesTextView.setText(Integer.toString(petService.getLikes()));
+        if (isLiked) {
+            likeImageView.setColorFilter(getContext().getResources().getColor(R.color.liked));
+        }
+        setDays();
+        openTimeTextView.setText(getOpenTimeString(petService.getDayOpen(), petService.getTimeOpen(), petService.getTimeClose()));
+        //telTextView.setText(petService.getTelNo());
+        //descTextView.setText(petService.getDescription());
+
+        //likeImageView.setOnClickListener(this);
+
     }
 
     private String getOpenTimeString(boolean[] dayOpen, Calendar openTime, Calendar closeTime) {
@@ -93,46 +121,8 @@ public class StoreDescriptionFragment extends Fragment {
         return out;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_store_description, container, false);
-    }
-
-    @SuppressLint("SetTextI18n")
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        ButterKnife.bind(this, view);
-
-        //set image
-        likesTextView.setText(Integer.toString(store.getLikes()));
-        if (isLiked) {
-            likeImageView.setColorFilter(getContext().getResources().getColor(R.color.liked));
-        }
-        setDays();
-        openTimeTextView.setText(getOpenTimeString(store.getDayOpen(), store.getTimeOpen(), store.getTimeClose()));
-        //telTextView.setText(store.getTelNo());
-        //descTextView.setText(store.getDescription());
-
-        likeImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isLiked) {
-                    isLiked = false;
-                    likeImageView.setColorFilter(getContext().getResources().getColor(R.color.icon));
-                } else {
-                    isLiked = true;
-                    likeImageView.setColorFilter(getContext().getResources().getColor(R.color.liked));
-                }
-            }
-        });
-
-    }
-
     private void setDays() {
-        boolean[] b = store.getDayOpen();
+        boolean[] b = petService.getDayOpen();
         if (!b[0]) {
             if (!b[1]) {
                 sun.setVisibility(View.GONE);
@@ -157,4 +147,19 @@ public class StoreDescriptionFragment extends Fragment {
             }
         }
     }
+/*
+    @Override
+    public void onClick(View v) {
+        if (isLiked) {
+            isLiked = false;
+            likeImageView.setColorFilter(getContext().getResources().getColor(R.color.icon));
+            Utils.unLike(petService.getId(), getActivity().getApplicationContext());
+        } else {
+            isLiked = true;
+            likeImageView.setColorFilter(getContext().getResources().getColor(R.color.liked));
+            Utils.like(petService.getId(), getActivity().getApplicationContext());
+        }
+    }
+*/
+
 }

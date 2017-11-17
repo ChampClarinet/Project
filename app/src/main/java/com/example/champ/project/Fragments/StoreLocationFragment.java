@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.champ.project.Models.Store;
+import com.example.champ.project.Models.PetService;
 import com.example.champ.project.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,15 +35,15 @@ public class StoreLocationFragment extends Fragment implements OnMapReadyCallbac
 
     GoogleMap mGoogleMap;
 
-    private Store store;
+    private PetService petService;
 
     public StoreLocationFragment() {
     }
 
-    public static StoreLocationFragment newInstance(Store store) {
+    public static StoreLocationFragment newInstance(PetService petService) {
         StoreLocationFragment fragment = new StoreLocationFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_STORE, store);
+        args.putSerializable(ARG_STORE, petService);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,7 +52,7 @@ public class StoreLocationFragment extends Fragment implements OnMapReadyCallbac
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            store = (Store) getArguments().getSerializable(ARG_STORE);
+            petService = (PetService) getArguments().getSerializable(ARG_STORE);
         }
     }
 
@@ -85,10 +85,10 @@ public class StoreLocationFragment extends Fragment implements OnMapReadyCallbac
         mGoogleMap = googleMap;
 
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        Log.d("Coordinates", store.getLatitude() + ", " + store.getLongitude());
+        Log.d("Coordinates", petService.getLatitude() + ", " + petService.getLongitude());
         // Add a marker and move the camera
-        LatLng location = new LatLng(store.getLatitude(), store.getLongitude());
-        mGoogleMap.addMarker(new MarkerOptions().position(location).title(store.getName()));
+        LatLng location = new LatLng(petService.getLatitude(), petService.getLongitude());
+        mGoogleMap.addMarker(new MarkerOptions().position(location).title(petService.getName()));
         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16));
 /*
@@ -96,7 +96,7 @@ public class StoreLocationFragment extends Fragment implements OnMapReadyCallbac
         List<Address> addresses = null;
         String addressText = "";
         try {
-            addresses = geocoder.getFromLocation(store.getLatitude(), store.getLongitude(), 1);
+            addresses = geocoder.getFromLocation(petService.getLatitude(), petService.getLongitude(), 1);
         } catch (IOException e) {
             e.printStackTrace();
         }
