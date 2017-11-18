@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -147,14 +148,20 @@ public class StoreDescriptionFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if (isLiked) {
-            isLiked = false;
-            likeImageView.setColorFilter(getContext().getResources().getColor(R.color.icon));
-            Utils.unLike(petService.getId(), getActivity());
-        } else {
-            isLiked = true;
-            likeImageView.setColorFilter(getContext().getResources().getColor(R.color.liked));
-            Utils.like(petService.getId(), getActivity());
+        if (v.getId() == R.id.imageview_store_like) {
+            if (isLiked) {
+                isLiked = false;
+                likeImageView.setColorFilter(getContext().getResources().getColor(R.color.icon));
+                petService.unLike();
+                Utils.unLike(petService.getId(), petService.getLikes(), getActivity());
+            } else {
+                isLiked = true;
+                likeImageView.setColorFilter(getContext().getResources().getColor(R.color.liked));
+                Utils.like(petService.getId(), petService.getLikes(), getActivity());
+                petService.like();
+            }
+            int x = petService.getLikes();
+            likesTextView.setText(Integer.toString(x));
         }
     }
 

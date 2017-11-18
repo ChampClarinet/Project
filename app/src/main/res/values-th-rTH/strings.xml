@@ -25,4 +25,5 @@
     <string name="hour_suffix">น.</string>
     <string name="minutes">นาที</string>
     <string name="mock_available">บริการสำหรับสุนัข, แมว</string>
+    <string name="priceRate">ระดับราคา :</string>
 </resources>

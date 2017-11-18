@@ -39,6 +39,7 @@ public class ServiceMenu {
     }
 
     public static ArrayList<PetService> filter(ArrayList<PetService> source, String s) {
+        if (s.length() == 0) return null;
         s = s.toLowerCase();
         ArrayList<PetService> out = new ArrayList<>();
         for (PetService p : source) {
@@ -70,7 +71,7 @@ public class ServiceMenu {
         return sort(out, orderBy);
     }
 
-    private ArrayList<PetService> sort(ArrayList<PetService> out, String orderBy) {
+    public ArrayList<PetService> sort(ArrayList<PetService> out, String orderBy) {
         //Log.d("sort", "sort by "+orderBy);
         switch (orderBy) {
             case SORT_BY_NAME:

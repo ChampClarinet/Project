@@ -27,7 +27,7 @@ public class SortAgent {
     private static final Comparator<PetService> likes = new Comparator<PetService>() {
         @Override
         public int compare(PetService o1, PetService o2) {
-            return o1.getLikes() - o2.getLikes();
+            return o2.getLikes() - o1.getLikes();
         }
     };
     private static Comparator<PetService> distance = new Comparator<PetService>() {

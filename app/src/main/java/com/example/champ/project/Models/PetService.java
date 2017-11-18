@@ -155,6 +155,14 @@ public class PetService implements Serializable, Comparable<PetService> {
         this.likes = likes;
     }
 
+    public void like(){
+        likes++;
+    }
+
+    public void unLike(){
+        likes--;
+    }
+
     public boolean[] getDayOpen() {
         return dayOpen;
     }

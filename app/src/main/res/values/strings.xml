@@ -12,6 +12,7 @@
     <string name="tab_location">LOCATION</string>
 
     <string name="likeLabel">Likes :</string>
+    <string name="priceRate">Price Level :</string>
 
     <string name="every_day">Every day</string>
     <string name="hour_suffix" />
@@ -46,7 +47,6 @@
     <string name="mock_likes_quantity" translatable="false">592</string>
     <string name="mock_description">This is Description\nSee? this is fucking description</string>
     <string name="mock_available">Available for dog, cat</string>
-    <string name="title_activity_maps">Map</string>
 
     <!--Sort by attributes-->
     <string name="sort_by_name">name</string>

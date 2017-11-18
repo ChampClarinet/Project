@@ -21,11 +21,13 @@ import java.util.ArrayList;
 public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecyclerViewAdapter.GenericHolder> {
 
     private ArrayList<PetService> dataSet;
+    private ArrayList<PetService> filteredDataSet;
     private Context context;
 
     public ServiceRecyclerViewAdapter(ArrayList<PetService> dataSet, Context context) {
         this.dataSet = dataSet;
         this.context = context;
+        filteredDataSet = (ArrayList<PetService>) this.dataSet.clone();
     }
 
     @Override
@@ -37,17 +39,21 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
 
     @Override
     public void onBindViewHolder(GenericHolder holder, int position) {
-        PetService petService = dataSet.get(position);
+        PetService petService = filteredDataSet.get(position);
         holder.setViewData(petService);
     }
 
     @Override
     public int getItemCount() {
-        return dataSet.size();
+        return filteredDataSet.size();
     }
 
-    public ArrayList<PetService> getData(){
+    public ArrayList<PetService> getData() {
         return dataSet;
+    }
+
+    public ArrayList<PetService> getFilteredData() {
+        return filteredDataSet;
     }
 
     public abstract static class GenericHolder extends RecyclerView.ViewHolder {
@@ -67,8 +73,7 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
         private TextView name;
         private TextView likes;
         private ImageView photo;
-        private ImageView rate2;
-        private ImageView rate3;
+        private TextView rate;
         private Context context;
 
         public ViewHolder(View itemView, Context context) {
@@ -77,9 +82,8 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
             cardView = itemView.findViewById(R.id.cv);
             name = itemView.findViewById(R.id.cv_name);
             likes = itemView.findViewById(R.id.cv_likes);
+            rate = itemView.findViewById(R.id.cv_rate);
             photo = itemView.findViewById(R.id.cv_photo);
-            rate2 = itemView.findViewById(R.id.cv_money2);
-            rate3 = itemView.findViewById(R.id.cv_money3);
 
         }
 
@@ -98,9 +102,8 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
             this.likes.setText(s);
             //photo.setImageDrawable(Utils.getDrawableFromAssets(context, petService.getPicturePath()));
             photo.setImageResource(R.drawable.ic_launcher);
-            int priceRate = petService.getPriceRate();
-            if (priceRate == 2 || priceRate == 3) rate2.setVisibility(View.VISIBLE);
-            if (priceRate == 3) rate3.setVisibility(View.VISIBLE);
+            String rateText = context.getString(R.string.priceRate) + " " + petService.getPriceRateString();
+            rate.setText(rateText);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -117,10 +120,21 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
 
     public void updateList(ArrayList<PetService> newList) {
         if (newList != null) {
-            dataSet = newList;
+            filteredDataSet = newList;
             notifyDataSetChanged();
         }
         Log.d("Recycler", printList());
+    }
+
+    public void filterList(ArrayList<PetService> newList) {
+        if (newList == null) {
+            resetFilter();
+        } else filteredDataSet = newList;
+        notifyDataSetChanged();
+    }
+
+    public void resetFilter(){
+        filteredDataSet = (ArrayList<PetService>) dataSet.clone();
     }
 
     private String printList() {

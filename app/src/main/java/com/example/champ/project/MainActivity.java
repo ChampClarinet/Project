@@ -5,7 +5,6 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +22,7 @@ import com.example.champ.project.Utils.GPSTracker;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import toan.android.floatingactionmenu.FloatingActionButton;
+import toan.android.floatingactionmenu.FloatingActionsMenu;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnFocusChangeListener, SearchView.OnQueryTextListener {
@@ -41,6 +41,14 @@ public class MainActivity extends AppCompatActivity
     RecyclerView hRecyclerView;
     @BindView(R.id.fab_sort_name)
     FloatingActionButton nameFab;
+    @BindView(R.id.fab_sort_price_rate)
+    FloatingActionButton priceRateFab;
+    @BindView(R.id.fab_sort_distance)
+    FloatingActionButton distanceFab;
+    @BindView(R.id.fab_sort_likes)
+    FloatingActionButton likesFab;
+    @BindView(R.id.sortMenuFab)
+    FloatingActionsMenu menuFab;
 
     private ServiceMenu mServiceMenu;
 
@@ -68,18 +76,47 @@ public class MainActivity extends AppCompatActivity
         setMenu();
         setRecyclerView();
         Log.d("DBtest", mServiceMenu.toString());
-        //setFab();
+        setFab();
     }
 
-    /*private void setFab() {
+    private void setFab() {
         nameFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isFocusHospital) sortService(ServiceMenu2.SORT_BY_NAME);
-                else sortHospital();
+                if (!isFocusHospital) {
+                    sAdapter.updateList(mServiceMenu.sort(sAdapter.getFilteredData(), ServiceMenu.SORT_BY_NAME));
+                } else
+                    hAdapter.updateList(mServiceMenu.sort(hAdapter.getFilteredData(), ServiceMenu.SORT_BY_NAME));
             }
         });
-    }*/
+        distanceFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isFocusHospital) {
+                    sAdapter.updateList(mServiceMenu.sort(sAdapter.getFilteredData(), ServiceMenu.SORT_BY_DISTANCE));
+                } else
+                    hAdapter.updateList(mServiceMenu.sort(hAdapter.getFilteredData(), ServiceMenu.SORT_BY_DISTANCE));
+            }
+        });
+        priceRateFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isFocusHospital) {
+                    sAdapter.updateList(mServiceMenu.sort(sAdapter.getFilteredData(), ServiceMenu.SORT_BY_PRICE_RATE));
+                } else
+                    hAdapter.updateList(mServiceMenu.sort(hAdapter.getFilteredData(), ServiceMenu.SORT_BY_PRICE_RATE));
+            }
+        });
+        likesFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isFocusHospital) {
+                    sAdapter.updateList(mServiceMenu.sort(sAdapter.getFilteredData(), ServiceMenu.SORT_BY_LIKES));
+                } else
+                    hAdapter.updateList(mServiceMenu.sort(hAdapter.getFilteredData(), ServiceMenu.SORT_BY_LIKES));
+            }
+        });
+    }
 
     @Override
     protected void onResume() {
@@ -99,11 +136,13 @@ public class MainActivity extends AppCompatActivity
                     sRecyclerView.setVisibility(View.VISIBLE);
                     hRecyclerView.setVisibility(View.GONE);
                     clearSearch();
+                    sAdapter.resetFilter();
                 } else if (position == 1) {
                     Log.d(TAG, "Hospital");
                     isFocusHospital = true;
                     sRecyclerView.setVisibility(View.GONE);
                     hRecyclerView.setVisibility(View.VISIBLE);
+                    hAdapter.resetFilter();
                     clearSearch();
                 }
             }
@@ -125,8 +164,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setMenu() {
-//        serviceMenu2 = ServiceMenu2.getInstance(this);
-//        hospitalMenu = HospitalMenu.getInstance(this);
         mServiceMenu = ServiceMenu.getInstance(this);
     }
 
@@ -161,7 +198,7 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
-
+/*
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -169,6 +206,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        */
     }
 
     @Override
@@ -224,12 +262,12 @@ public class MainActivity extends AppCompatActivity
     public boolean onQueryTextChange(String newText) {
         if (!isFocusHospital) {
             ServiceRecyclerViewAdapter adapter = (ServiceRecyclerViewAdapter) sRecyclerView.getAdapter();
-            adapter.updateList(ServiceMenu.filter(adapter.getData(), newText));
+            adapter.filterList(ServiceMenu.filter(adapter.getData(), newText));
         } else {
             ServiceRecyclerViewAdapter adapter = (ServiceRecyclerViewAdapter) hRecyclerView.getAdapter();
-            adapter.updateList(ServiceMenu.filter(adapter.getData(), newText));
+            adapter.filterList(ServiceMenu.filter(adapter.getData(), newText));
         }
-        return false;
+        return true;
     }
 
 }

@@ -57,31 +57,15 @@
                 android:text="20"
                 tools:ignore="HardcodedText" />
 
-            <ImageView
-                android:id="@+id/cv_money1"
+            <TextView
+                android:id="@+id/cv_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/cv_photo"
+                android:layout_alignBaseline="@+id/cv_likes"
+                android:layout_alignBottom="@+id/cv_likes"
+                android:layout_marginStart="8dp"
                 android:layout_toEndOf="@+id/cv_likes"
-                android:background="@drawable/ic_attach_money_white_24dp" />
-
-            <ImageView
-                android:id="@+id/cv_money2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/cv_money1"
-                android:layout_toEndOf="@+id/cv_money1"
-                android:background="@drawable/ic_attach_money_white_24dp"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/cv_money3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/cv_money2"
-                android:layout_toEndOf="@+id/cv_money2"
-                android:background="@drawable/ic_attach_money_white_24dp"
-                android:visibility="gone" />
+                android:text="@string/priceRate" />
 
         </RelativeLayout>
 

@@ -84,20 +84,30 @@ public class Utils {
         return likes.contains(serviceId);
     }
 
-    public static void like(int serviceId, Context context) {
+    public static void like(int serviceId, int currentLikes, Context context) {
         DatabaseHelper mHelper = new DatabaseHelper(context);
         SQLiteDatabase db = mHelper.getWritableDatabase();
         if (!getLikeCondition(serviceId, context)) {
             ContentValues cv = new ContentValues();
             cv.put(DatabaseHelper.COL_ID, serviceId);
             db.insert(DatabaseHelper.TABLE_NAME_LIKES, null, cv);
+            db.rawQuery("UPDATE " + DatabaseHelper.TABLE_NAME_SERVICE +
+                            " SET " + DatabaseHelper.COL_LIKE + " = " + (--currentLikes) +
+                            " WHERE " + DatabaseHelper.COL_ID + " = " + serviceId,
+                    null
+            );
         }
     }
 
-    public static void unLike(int serviceId, Context context) {
+    public static void unLike(int serviceId, int currentLikes, Context context) {
         DatabaseHelper mHelper = new DatabaseHelper(context);
         SQLiteDatabase db = mHelper.getWritableDatabase();
         db.delete(DatabaseHelper.TABLE_NAME_LIKES, DatabaseHelper.COL_ID + " = " + serviceId, null);
+        db.rawQuery("UPDATE " + DatabaseHelper.TABLE_NAME_SERVICE +
+                        " SET " + DatabaseHelper.COL_LIKE + " = " + (++currentLikes) +
+                        " WHERE " + DatabaseHelper.COL_ID + " = " + serviceId,
+                null
+        );
     }
 
     public static void setLanguage(Context context) {
