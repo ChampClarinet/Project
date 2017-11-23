@@ -19,16 +19,14 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <android.support.v7.widget.SearchView
-                android:id="@+id/searchView"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/language_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:showAsAction="collapseActionView"
-                app:defaultQueryHint="@string/search"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-            </android.support.v7.widget.SearchView>
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ActionBar"
+                app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+                app:title="@string/app_name" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -54,59 +52,59 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_main" />
-<!--
-    <toan.android.floatingactionmenu.FloatingActionsMenu
-        android:id="@+id/sortMenuFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:clickable="true"
-        android:focusable="true"
-        app:fab_addButtonColorNormal="@color/colorAccent"
-        app:fab_addButtonColorPressed="@color/colorAccent_pressed"
-        app:fab_menuIcon="@drawable/ic_sort_white_24dp">
-
-        <toan.android.floatingactionmenu.FloatingActionButton
-            android:id="@+id/fab_sort_name"
+    <!--
+        <toan.android.floatingactionmenu.FloatingActionsMenu
+            android:id="@+id/sortMenuFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:tint="@color/colorPrimary"
-            fab:fab_colorNormal="@color/colorAccent"
-            fab:fab_colorPressed="@color/colorAccent_pressed"
-            fab:fab_icon="@drawable/ic_sort_by_name_white_24dp"
-            fab:fab_title="@string/sort_by_name" />
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:clickable="true"
+            android:focusable="true"
+            app:fab_addButtonColorNormal="@color/colorAccent"
+            app:fab_addButtonColorPressed="@color/colorAccent_pressed"
+            app:fab_menuIcon="@drawable/ic_sort_white_24dp">
 
-        <toan.android.floatingactionmenu.FloatingActionButton
-            android:id="@+id/fab_sort_price_rate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:tint="@color/colorPrimary"
-            app:fab_icon="@drawable/ic_attach_money_white_24dp"
-            fab:fab_colorNormal="@color/colorAccent"
-            fab:fab_colorPressed="@color/colorAccent_pressed"
-            fab:fab_title="@string/sort_by_price_rate" />
+            <toan.android.floatingactionmenu.FloatingActionButton
+                android:id="@+id/fab_sort_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tint="@color/colorPrimary"
+                fab:fab_colorNormal="@color/colorAccent"
+                fab:fab_colorPressed="@color/colorAccent_pressed"
+                fab:fab_icon="@drawable/ic_sort_by_name_white_24dp"
+                fab:fab_title="@string/sort_by_name" />
 
-        <toan.android.floatingactionmenu.FloatingActionButton
-            android:id="@+id/fab_sort_likes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@drawable/dog_paw"
-            app:rippleColor="@color/colorPrimary"
-            fab:fab_colorNormal="@color/colorAccent"
-            fab:fab_colorPressed="@color/colorAccent_pressed"
-            fab:fab_title="@string/sort_by_likes" />
+            <toan.android.floatingactionmenu.FloatingActionButton
+                android:id="@+id/fab_sort_price_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tint="@color/colorPrimary"
+                app:fab_icon="@drawable/ic_attach_money_white_24dp"
+                fab:fab_colorNormal="@color/colorAccent"
+                fab:fab_colorPressed="@color/colorAccent_pressed"
+                fab:fab_title="@string/sort_by_price_rate" />
 
-        <toan.android.floatingactionmenu.FloatingActionButton
-            android:id="@+id/fab_sort_distance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:tint="@color/colorPrimary"
-            app:fab_icon="@drawable/ic_location_on_white_24dp"
-            app:fab_title="@string/sort_by_distance"
-            fab:fab_colorNormal="@color/colorAccent"
-            fab:fab_colorPressed="@color/colorAccent_pressed" />
+            <toan.android.floatingactionmenu.FloatingActionButton
+                android:id="@+id/fab_sort_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_icon="@drawable/dog_paw"
+                app:rippleColor="@color/colorPrimary"
+                fab:fab_colorNormal="@color/colorAccent"
+                fab:fab_colorPressed="@color/colorAccent_pressed"
+                fab:fab_title="@string/sort_by_likes" />
 
-    </toan.android.floatingactionmenu.FloatingActionsMenu>
--->
+            <toan.android.floatingactionmenu.FloatingActionButton
+                android:id="@+id/fab_sort_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tint="@color/colorPrimary"
+                app:fab_icon="@drawable/ic_location_on_white_24dp"
+                app:fab_title="@string/sort_by_distance"
+                fab:fab_colorNormal="@color/colorAccent"
+                fab:fab_colorPressed="@color/colorAccent_pressed" />
+
+        </toan.android.floatingactionmenu.FloatingActionsMenu>
+    -->
 </android.support.design.widget.CoordinatorLayout>

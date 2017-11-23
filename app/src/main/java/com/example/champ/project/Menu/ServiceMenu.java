@@ -87,6 +87,12 @@ public class ServiceMenu {
         }
     }
 
+    public ArrayList<PetService> search(String query){
+        ArrayList<PetService> list = getServiceList(SORT_BY_NAME);
+        list.addAll(getHospitalList(SORT_BY_NAME));
+        return filter(list, query);
+    }
+
     /*
         public ArrayList<PetService> filterAnimal(String animal){
         }

@@ -53,6 +53,9 @@
             android:label="@string/model_name_services"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity android:name=".SearchResultsActivity"
+            android:label="@string/search_results"/>
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

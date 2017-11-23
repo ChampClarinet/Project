@@ -3,8 +3,9 @@ package com.example.champ.project.Models;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
-import com.example.champ.project.Utils.GPSTracker;
+import com.example.champ.project.Utils.Utils;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -75,15 +76,29 @@ public class PetService implements Serializable, Comparable<PetService> {
 
     @NonNull
     public Float getDistance() {
+        Location location = getLocation();
+        Location here = Utils.getCurrentLocation();
+        Log.d("Distance of " + name, location.distanceTo(here) + "");
+        return location.distanceTo(here);
+    }
+
+    @NonNull
+    public Float getDistanceInKm() {
+        float d = (float) (((int) (getDistance() / 10)) / 100.0);
+        return d;
+    }
+
+    @NonNull
+    public Float getDistanceInMetres() {
+        float d = (float) (((int) (getDistance() * 100)) / 100.0);
+        return d;
+    }
+
+    public Location getLocation() {
         Location location = new Location(LocationManager.GPS_PROVIDER);
         location.setLatitude(latitude);
         location.setLongitude(longitude);
-        GPSTracker tracker = GPSTracker.getInstance();
-        Location here = new Location(LocationManager.GPS_PROVIDER);
-        here.setLatitude(tracker.getLatitude());
-        here.setLongitude(tracker.getLongitude());
-        tracker.stopUsingGPS();
-        return location.distanceTo(here);
+        return location;
     }
 
     @Override
@@ -155,11 +170,11 @@ public class PetService implements Serializable, Comparable<PetService> {
         this.likes = likes;
     }
 
-    public void like(){
+    public void like() {
         likes++;
     }
 
-    public void unLike(){
+    public void unLike() {
         likes--;
     }
 

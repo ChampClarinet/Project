@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -130,34 +129,4 @@ public class PetServiceFragment extends Fragment {
         fabMenu.collapse();
     }
 
-/*
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        SearchView searchView = getActivity().findViewById(R.id.searchView);
-        searchView.setIconified(false);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Log.d(TAG, isHospital + " " + newText);
-
-                ServiceRecyclerViewAdapter adapter = (ServiceRecyclerViewAdapter) petServiceRecyclerView.getAdapter();
-                adapter.filterList(ServiceMenu.filter(adapter.getData(), newText));
-
-                adapter = (ServiceRecyclerViewAdapter) petServiceRecyclerView.getAdapter();
-                adapter.filterList(ServiceMenu.filter(adapter.getData(), newText));
-
-                return true;
-            }
-
-        });
-        searchView.setQuery("", false);
-    }
-    */
 }

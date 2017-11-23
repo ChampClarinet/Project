@@ -7,6 +7,8 @@ import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.util.Log;
 
 import com.example.champ.project.Database.DatabaseHelper;
@@ -118,6 +120,15 @@ public class Utils {
         Configuration config = new Configuration();
         config.setLocale(new Locale(language));
         context.getResources().updateConfiguration(config, null);
+    }
+
+    public static Location getCurrentLocation(){
+        GPSTracker tracker = GPSTracker.getInstance();
+        Location here = new Location(LocationManager.GPS_PROVIDER);
+        here.setLatitude(tracker.getLatitude());
+        here.setLongitude(tracker.getLongitude());
+        tracker.stopUsingGPS();
+        return here;
     }
 
 }

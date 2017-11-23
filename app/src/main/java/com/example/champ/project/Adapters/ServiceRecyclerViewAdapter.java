@@ -74,6 +74,7 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
         private TextView likes;
         private ImageView photo;
         private TextView rate;
+        private TextView distance;
         private Context context;
 
         public ViewHolder(View itemView, Context context) {
@@ -84,7 +85,7 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
             likes = itemView.findViewById(R.id.cv_likes);
             rate = itemView.findViewById(R.id.cv_rate);
             photo = itemView.findViewById(R.id.cv_photo);
-
+            distance = itemView.findViewById(R.id.cv_distance);
         }
 
         private void openStoreActivity(int id) throws Exception {
@@ -103,11 +104,15 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
             //photo.setImageDrawable(Utils.getDrawableFromAssets(context, petService.getPicturePath()));
             photo.setImageResource(R.drawable.ic_launcher);
             //String rateText = context.getString(R.string.priceRate) + " " + petService.getPriceRateString();
-            String rateText = context.getString(R.string.priceRate)+" ";
-            for(int i=0;i<petService.getPriceRate();++i){
+            String rateText = context.getString(R.string.priceRate) + " ";
+            for (int i = 0; i < petService.getPriceRate(); ++i) {
                 rateText += context.getString(R.string.rate_symbol);
             }
             rate.setText(rateText);
+            String serviceDistance = String.valueOf(petService.getDistanceInMetres()) + " m";
+            if (petService.getDistance() > 1000)
+                serviceDistance = String.valueOf(petService.getDistanceInKm()) + " km";
+            distance.setText(serviceDistance);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -137,7 +142,7 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
         notifyDataSetChanged();
     }
 
-    public void resetFilter(){
+    public void resetFilter() {
         filteredDataSet = (ArrayList<PetService>) dataSet.clone();
     }
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Project</string>
+    <string name="app_name">EasyPets</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -13,7 +13,8 @@
 
     <string name="likeLabel">Likes:</string>
     <string name="priceRate">Price:</string>
-    <string name="queue_left">%1$s Queue left</string>
+    <string name="available_for">Available for</string>
+    <string name="distanceLabel">%1$skm</string>
 
     <string name="every_day">Every day</string>
     <string name="hour_suffix" />
@@ -56,5 +57,7 @@
     <string name="sort_by_likes">likes</string>
     <string name="sort_by_price_rate">price rate</string>
     <string name="sort_by_distance">distance</string>
+    <string name="search_results">Search results</string>
+    <string name="msg_zero_results">There is no results</string>
 
 </resources>
