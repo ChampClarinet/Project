@@ -10,5 +10,5 @@
     <!--TextSizes-->
     <dimen name="titleTextSize">20sp</dimen>
     <dimen name="card_corner_radius">5dp</dimen>
-    <dimen name="card_margin">10dp</dimen>
+    <dimen name="card_margin">8dp</dimen>
 </resources>

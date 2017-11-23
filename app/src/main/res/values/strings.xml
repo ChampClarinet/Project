@@ -11,8 +11,9 @@
     <string name="tab_review">REVIEW</string>
     <string name="tab_location">LOCATION</string>
 
-    <string name="likeLabel">Likes :</string>
-    <string name="priceRate">Price Level :</string>
+    <string name="likeLabel">Likes:</string>
+    <string name="priceRate">Price:</string>
+    <string name="queue_left">%1$s Queue left</string>
 
     <string name="every_day">Every day</string>
     <string name="hour_suffix" />
