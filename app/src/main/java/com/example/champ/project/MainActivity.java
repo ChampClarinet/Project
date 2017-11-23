@@ -1,9 +1,12 @@
 package com.example.champ.project;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,12 +15,14 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.example.champ.project.Adapters.ServiceRecyclerViewAdapter;
 import com.example.champ.project.Menu.ServiceMenu;
 import com.example.champ.project.Utils.GPSTracker;
+import com.example.champ.project.Utils.OnSwipeListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +36,8 @@ public class MainActivity extends AppCompatActivity
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
+    @BindView(R.id.main_content_root)
+    ConstraintLayout contentRoot;
     @BindView(R.id.searchView)
     SearchView searchView;
     @BindView(R.id.service_tabs)
@@ -58,6 +65,7 @@ public class MainActivity extends AppCompatActivity
 
     private String defaultLanguage;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +85,24 @@ public class MainActivity extends AppCompatActivity
         setRecyclerView();
         Log.d("DBtest", mServiceMenu.toString());
         setFab();
+        contentRoot.setOnTouchListener(new OnSwipeListener(this) {
+
+            @Override
+            public void onSwipeLeft() {
+                super.onSwipeLeft();
+                Log.d(TAG, "swipeLeft");
+                changeToHospital();
+                serviceTabLayout.getTabAt(1).select();
+            }
+
+            @Override
+            public void onSwipeRight() {
+                super.onSwipeRight();
+                Log.d(TAG, "swipeRight");
+                changeToService();
+                serviceTabLayout.getTabAt(0).select();
+            }
+        });
     }
 
     private void setFab() {
@@ -131,19 +157,9 @@ public class MainActivity extends AppCompatActivity
                 int position = tab.getPosition();
                 //switch here
                 if (position == 0) {
-                    Log.d(TAG, "PetService");
-                    isFocusHospital = false;
-                    sRecyclerView.setVisibility(View.VISIBLE);
-                    hRecyclerView.setVisibility(View.GONE);
-                    clearSearch();
-                    sAdapter.resetFilter();
+                    changeToService();
                 } else if (position == 1) {
-                    Log.d(TAG, "Hospital");
-                    isFocusHospital = true;
-                    sRecyclerView.setVisibility(View.GONE);
-                    hRecyclerView.setVisibility(View.VISIBLE);
-                    hAdapter.resetFilter();
-                    clearSearch();
+                    changeToHospital();
                 }
             }
 
@@ -157,6 +173,24 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+    }
+
+    private void changeToHospital() {
+        Log.d(TAG, "Hospital");
+        isFocusHospital = true;
+        sRecyclerView.setVisibility(View.GONE);
+        hRecyclerView.setVisibility(View.VISIBLE);
+        hAdapter.resetFilter();
+        clearSearch();
+    }
+
+    private void changeToService() {
+        Log.d(TAG, "PetService");
+        isFocusHospital = false;
+        sRecyclerView.setVisibility(View.VISIBLE);
+        hRecyclerView.setVisibility(View.GONE);
+        clearSearch();
+        sAdapter.resetFilter();
     }
 
     private void clearSearch() {
