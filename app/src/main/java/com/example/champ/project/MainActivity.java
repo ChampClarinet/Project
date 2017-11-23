@@ -6,23 +6,19 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MotionEventCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.example.champ.project.Adapters.ServiceRecyclerViewAdapter;
+import com.example.champ.project.Adapters.ServiceListPagerAdapter;
 import com.example.champ.project.Menu.ServiceMenu;
 import com.example.champ.project.Utils.GPSTracker;
-import com.example.champ.project.Utils.OnSwipeListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +26,7 @@ import toan.android.floatingactionmenu.FloatingActionButton;
 import toan.android.floatingactionmenu.FloatingActionsMenu;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnFocusChangeListener, SearchView.OnQueryTextListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnFocusChangeListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -42,6 +38,9 @@ public class MainActivity extends AppCompatActivity
     SearchView searchView;
     @BindView(R.id.service_tabs)
     TabLayout serviceTabLayout;
+    @BindView(R.id.service_list_pager)
+    ViewPager serviceViewPager;
+    /*
     @BindView(R.id.rv_service)
     RecyclerView sRecyclerView;
     @BindView(R.id.rv_hospital)
@@ -56,12 +55,13 @@ public class MainActivity extends AppCompatActivity
     FloatingActionButton likesFab;
     @BindView(R.id.sortMenuFab)
     FloatingActionsMenu menuFab;
+*/
 
     private ServiceMenu mServiceMenu;
 
-    private ServiceRecyclerViewAdapter sAdapter;
-    private ServiceRecyclerViewAdapter hAdapter;
-    private boolean isFocusHospital;
+    //private ServiceRecyclerViewAdapter sAdapter;
+    //private ServiceRecyclerViewAdapter hAdapter;
+    //private boolean isFocusHospital;
 
     private String defaultLanguage;
 
@@ -79,13 +79,13 @@ public class MainActivity extends AppCompatActivity
         //Utils.setLanguage();
 
         setNavBarAndActionBar();
-        isFocusHospital = false;
-        setTab();
+    //    isFocusHospital = false;
+        setTabAndPager();
         setMenu();
-        setRecyclerView();
+      //  setRecyclerView();
         Log.d("DBtest", mServiceMenu.toString());
-        setFab();
-        contentRoot.setOnTouchListener(new OnSwipeListener(this) {
+        //setFab();
+        /*contentRoot.setOnTouchListener(new OnSwipeListener(this) {
 
             @Override
             public void onSwipeLeft() {
@@ -102,9 +102,9 @@ public class MainActivity extends AppCompatActivity
                 changeToService();
                 serviceTabLayout.getTabAt(0).select();
             }
-        });
+        });*/
     }
-
+/*
     private void setFab() {
         nameFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,9 +149,12 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         setSearchView();
     }
-
-    private void setTab() {
-        serviceTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+*/
+    private void setTabAndPager() {
+        serviceViewPager.setAdapter(new ServiceListPagerAdapter(getSupportFragmentManager()));
+        serviceViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(serviceTabLayout));
+        serviceTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(serviceViewPager));
+        /*serviceTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
@@ -173,8 +176,9 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+        */
     }
-
+/*
     private void changeToHospital() {
         Log.d(TAG, "Hospital");
         isFocusHospital = true;
@@ -196,11 +200,11 @@ public class MainActivity extends AppCompatActivity
     private void clearSearch() {
         searchView.setQuery("", false);
     }
-
+*/
     private void setMenu() {
         mServiceMenu = ServiceMenu.getInstance(this);
     }
-
+/*
     private void setRecyclerView() {
         sAdapter = new ServiceRecyclerViewAdapter(mServiceMenu.getServiceList(ServiceMenu.SORT_BY_DISTANCE), this);
         sRecyclerView.setHasFixedSize(true);
@@ -211,7 +215,7 @@ public class MainActivity extends AppCompatActivity
         hRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         hRecyclerView.setAdapter(hAdapter);
     }
-
+*/
     private void setSearchView() {
         searchView.setFocusable(false);
         searchView.setIconified(false);
@@ -225,7 +229,7 @@ public class MainActivity extends AppCompatActivity
                 return false;
             }
         });
-        searchView.setOnQueryTextListener(this);
+        //searchView.setOnQueryTextListener(this);
     }
 
     private void setNavBarAndActionBar() {
@@ -285,23 +289,6 @@ public class MainActivity extends AppCompatActivity
             assert imm != null;
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        if (!isFocusHospital) {
-            ServiceRecyclerViewAdapter adapter = (ServiceRecyclerViewAdapter) sRecyclerView.getAdapter();
-            adapter.filterList(ServiceMenu.filter(adapter.getData(), newText));
-        } else {
-            ServiceRecyclerViewAdapter adapter = (ServiceRecyclerViewAdapter) hRecyclerView.getAdapter();
-            adapter.filterList(ServiceMenu.filter(adapter.getData(), newText));
-        }
-        return true;
     }
 
 }

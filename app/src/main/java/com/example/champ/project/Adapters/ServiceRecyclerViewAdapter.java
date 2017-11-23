@@ -102,7 +102,11 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
             this.likes.setText(s);
             //photo.setImageDrawable(Utils.getDrawableFromAssets(context, petService.getPicturePath()));
             photo.setImageResource(R.drawable.ic_launcher);
-            String rateText = context.getString(R.string.priceRate) + " " + petService.getPriceRateString();
+            //String rateText = context.getString(R.string.priceRate) + " " + petService.getPriceRateString();
+            String rateText = context.getString(R.string.priceRate)+" ";
+            for(int i=0;i<petService.getPriceRate();++i){
+                rateText += context.getString(R.string.rate_symbol);
+            }
             rate.setText(rateText);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override

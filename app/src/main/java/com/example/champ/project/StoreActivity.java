@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.example.champ.project.Adapters.StorePagerAdapter;
+import com.example.champ.project.Adapters.ServiceDetailsPagerAdapter;
 import com.example.champ.project.Models.PetService;
 
 import butterknife.BindView;
@@ -59,7 +59,7 @@ public class StoreActivity extends AppCompatActivity {
     }
 
     private void setPager(){
-        StorePagerAdapter adapter = new StorePagerAdapter(petService, getSupportFragmentManager());
+        ServiceDetailsPagerAdapter adapter = new ServiceDetailsPagerAdapter(petService, getSupportFragmentManager());
         pager.setAdapter(adapter);
     }
 

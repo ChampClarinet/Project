@@ -8,13 +8,13 @@ import com.example.champ.project.Fragments.StoreDescriptionFragment;
 import com.example.champ.project.Fragments.StoreLocationFragment;
 import com.example.champ.project.Models.PetService;
 
-public class StorePagerAdapter extends FragmentPagerAdapter {
+public class ServiceDetailsPagerAdapter extends FragmentPagerAdapter {
 
-    private static final String TAG = StorePagerAdapter.class.getSimpleName();
+    private static final String TAG = ServiceDetailsPagerAdapter.class.getSimpleName();
 
     private PetService petService;
 
-    public StorePagerAdapter(PetService petService, FragmentManager fm) {
+    public ServiceDetailsPagerAdapter(PetService petService, FragmentManager fm) {
         super(fm);
         this.petService = petService;
     }
