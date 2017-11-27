@@ -1,6 +1,7 @@
 package com.example.champ.project.Fragments;
 
 import android.annotation.SuppressLint;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.champ.project.Models.PetService;
 import com.example.champ.project.R;
@@ -88,6 +91,16 @@ public class StoreDescriptionFragment extends Fragment implements View.OnClickLi
         super.onViewCreated(view, savedInstanceState);
 
         ButterKnife.bind(this, view);
+
+        RelativeLayout openMaps = view.findViewById(R.id.store_open_map_button);
+
+        openMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Location location = petService.getLocation();
+                Toast.makeText(getContext(), "Open in maps", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         String imgPath = petService.getPicturePath();
         storeImageView.setImageDrawable(Utils.getDrawableFromAssets(getContext(), imgPath));

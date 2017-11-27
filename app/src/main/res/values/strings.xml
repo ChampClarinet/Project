@@ -59,5 +59,6 @@
     <string name="sort_by_distance">distance</string>
     <string name="search_results">Search results</string>
     <string name="msg_zero_results">There is no results</string>
+    <string name="open_maps">Location</string>
 
 </resources>

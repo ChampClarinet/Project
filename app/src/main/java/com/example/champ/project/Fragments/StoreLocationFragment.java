@@ -66,7 +66,6 @@ public class StoreLocationFragment extends Fragment implements OnMapReadyCallbac
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        addressTextView.setVisibility(View.GONE);
         setMap();
     }
 
