@@ -24,6 +24,12 @@ import java.util.Locale;
 
 public class Utils {
 
+    public static String getGoogleMapsUri(Location location){
+        String uri = "https://www.google.com/maps/search/?api=1&query=";
+        uri += location.getLatitude()+","+location.getLongitude();
+        return uri;
+    }
+
     public static Drawable getDrawableFromAssets(Context context, String pictureFileName) {
         AssetManager am = context.getAssets();
         try {

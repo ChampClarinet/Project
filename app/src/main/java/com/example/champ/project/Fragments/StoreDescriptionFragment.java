@@ -1,7 +1,10 @@
 package com.example.champ.project.Fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -98,7 +101,9 @@ public class StoreDescriptionFragment extends Fragment implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 //Location location = petService.getLocation();
-                Toast.makeText(getContext(), "Open in maps", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Launching Google Maps", Toast.LENGTH_SHORT).show();
+                Location location = petService.getLocation();
+                openGoogleMaps(location);
             }
         });
 
@@ -116,6 +121,14 @@ public class StoreDescriptionFragment extends Fragment implements View.OnClickLi
 
         likeImageView.setOnClickListener(this);
 
+    }
+
+    private void openGoogleMaps(Location location) {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        String uri = Utils.getGoogleMapsUri(location);
+        Log.i(TAG, uri);
+        i.setData(Uri.parse(uri));
+        startActivity(i);
     }
 
     private String getOpenTimeString(boolean[] dayOpen, Calendar openTime, Calendar closeTime) {

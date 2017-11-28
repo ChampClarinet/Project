@@ -70,7 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private void dummyData(SQLiteDatabase db) {
         insertToServiceTable(db, createContentValue("ABC Pet Shop", "scenery.jpg", "0819543213", 2, 27, "10000000", "1000", "2000", "ABC PET", 12.8069134, 99.98692430000006, 0, null));
-        insertToServiceTable(db, createContentValue("Narita Pet", "scenery.jpg", "0945631210", 1, 907, "10000000", "0800", "1900", "いらっしゃいませ！", 35.7056396, 139.7518913, 0, null));
+        insertToServiceTable(db, createContentValue("Narita Pet", "scenery.jpg", "0945631210", 1, 907, "10000000", "0800", "1900", "いらっしゃいませ！", 35.7731357303353, 140.38718527456058, 0, null));
         insertToServiceTable(db, createContentValue("Mamba Pet", "scenery.jpg", "0841234812", 1, 218, "00011101", "0900", "1830", "Ovuvuevuevue enyetuenwuevue ugbemugbem osas", -33.9604102, 18.401253699999984, 0, null));
         insertToServiceTable(db, createContentValue("Champ Pet", "scenery.jpg", "0942145389", 3, 80, "00011111", "0700", "2100", "I am handsome", 13.7124214, 100.52708480000001, 0, null));
         insertToServiceTable(db, createContentValue("Vet Tom", "scenery.jpg", "0541234751", 2, 157, "01110110", "nope", "nope", "Hello World", 13.8142661, 100.03615059999993, 1, null));
