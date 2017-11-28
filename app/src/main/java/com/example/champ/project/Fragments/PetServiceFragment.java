@@ -84,6 +84,9 @@ public class PetServiceFragment extends Fragment {
         petServiceRecyclerView.setHasFixedSize(true);
         petServiceRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         petServiceRecyclerView.setAdapter(adapter);
+//        DividerItemDecoration myDivider = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+//        myDivider.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
+//        petServiceRecyclerView.addItemDecoration(myDivider );
 
         setFab();
 

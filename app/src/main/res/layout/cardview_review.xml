@@ -1,6 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/my_default_margin"
+    android:elevation="@dimen/cardview_default_elevation"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    tools:layout_editor_absoluteX="8dp"
+    tools:layout_editor_absoluteY="25dp">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/my_default_margin">
+
+        <ImageView
+            android:id="@+id/review_user_pic"
+            android:layout_width="@dimen/icon_picture_size"
+            android:layout_height="@dimen/icon_picture_size"
+            android:background="@color/colorPrimaryDim"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_anonymous_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/review_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/my_default_margin"
+            android:text="Anonymous"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/review_user_pic"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/review_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/my_default_margin"
+            android:layout_marginStart="@dimen/my_default_margin"
+            android:layout_marginTop="@dimen/my_default_margin"
+            android:singleLine="false"
+            android:text="This is review text"
+            app:layout_constraintStart_toEndOf="@id/review_user_pic"
+            app:layout_constraintTop_toBottomOf="@id/review_user_name" />
+
+        <ImageView
+            android:id="@+id/review_picture"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_margin="@dimen/my_default_margin"
+            android:background="@color/colorPrimaryDim"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_photo_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/review_text" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/my_default_margin"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/review_picture">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_reply_24dp" />
+
+            <TextView
+                android:id="@+id/review_reply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/view_replies" />
+
+        </LinearLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

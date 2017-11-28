@@ -27,4 +27,5 @@
     <string name="mock_available">บริการสำหรับสุนัข, แมว</string>
     <string name="priceRate">ระดับราคา :</string>
     <string name="rate_symbol">฿</string>
+    <string name="view_replies">%1$d การตอบกลับ</string>
 </resources>

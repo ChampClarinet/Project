@@ -24,8 +24,6 @@
     <string name="minutes" />
     <string name="to">to</string>
 
-    <string name="rate_symbol" translatable="false">฿</string>
-
     <!--Titles-->
     <string name="search">Search</string>
     <string name="settings">Settings</string>
@@ -58,11 +56,14 @@
     <string name="mock_available">Available for dog, cat</string>
 
     <!--Sort by attributes-->
-    <string name="sort_by_name">name</string>
-    <string name="sort_by_likes">likes</string>
-    <string name="sort_by_price_rate">price rate</string>
-    <string name="sort_by_distance">distance</string>
+    <string name="sort_by_name" translatable="false">name</string>
+    <string name="sort_by_likes" translatable="false">likes</string>
+    <string name="sort_by_price_rate" translatable="false">price rate</string>
+    <string name="sort_by_distance" translatable="false">distance</string>
+
     <string name="search_results">Search results</string>
     <string name="msg_zero_results">There is no results</string>
+    <string name="view_replies">%1$d replies</string>
+    <string name="rate_symbol">$</string>
 
 </resources>

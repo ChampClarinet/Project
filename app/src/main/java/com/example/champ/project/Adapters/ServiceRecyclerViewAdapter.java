@@ -32,7 +32,7 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
 
     @Override
     public GenericHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_layout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_list_service, parent, false);
         ViewHolder holder = new ViewHolder(v, context);
         return holder;
     }

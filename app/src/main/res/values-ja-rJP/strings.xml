@@ -28,4 +28,5 @@
     <string name="mock_available">犬、猫 のみ</string>
     <string name="priceRate">価格レベル :</string>
     <string name="rate_symbol">￥</string>
+    <string name="view_replies">%1$d 返信</string>
 </resources>

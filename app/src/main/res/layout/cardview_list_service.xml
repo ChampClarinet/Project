@@ -21,8 +21,8 @@
 
             <ImageView
                 android:id="@+id/cv_photo"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/icon_picture_size"
+                android:layout_height="@dimen/icon_picture_size"
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"

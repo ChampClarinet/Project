@@ -1,18 +1,28 @@
 package com.example.champ.project.Fragments;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.champ.project.Adapters.ServiceReviewRecyclerAdapter;
+import com.example.champ.project.Menu.ReviewLoader;
 import com.example.champ.project.Models.PetService;
 import com.example.champ.project.R;
 
-public class StoreReviewFragment extends Fragment{
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class StoreReviewFragment extends Fragment {
 
     private static final String TAG = StoreReviewFragment.class.getSimpleName();
+
+    @BindView(R.id.rv_review)
+    RecyclerView reviewRecyclerView;
 
     private static final String ARG_STORE = "STORE";
 
@@ -21,7 +31,7 @@ public class StoreReviewFragment extends Fragment{
     public StoreReviewFragment() {
     }
 
-    public static StoreReviewFragment newInstance(PetService petService){
+    public static StoreReviewFragment newInstance(PetService petService) {
         StoreReviewFragment fragment = new StoreReviewFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_STORE, petService);
@@ -32,7 +42,7 @@ public class StoreReviewFragment extends Fragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments() != null){
+        if (getArguments() != null) {
             this.petService = (PetService) getArguments().getSerializable(ARG_STORE);
         }
     }
@@ -46,6 +56,13 @@ public class StoreReviewFragment extends Fragment{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
+        ReviewLoader loader = ReviewLoader.getInstance();
+        ServiceReviewRecyclerAdapter adapter = new ServiceReviewRecyclerAdapter(loader.getReviews(), getContext());
+
+        reviewRecyclerView.setHasFixedSize(true);
+        reviewRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        reviewRecyclerView.setAdapter(adapter);
     }
 
 }
