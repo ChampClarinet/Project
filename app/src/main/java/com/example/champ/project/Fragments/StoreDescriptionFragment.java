@@ -101,7 +101,7 @@ public class StoreDescriptionFragment extends Fragment implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 //Location location = petService.getLocation();
-                Toast.makeText(getContext(), "Launching Google Maps", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.launch_google_maps), Toast.LENGTH_SHORT).show();
                 Location location = petService.getLocation();
                 openGoogleMaps(location);
             }
@@ -136,6 +136,7 @@ public class StoreDescriptionFragment extends Fragment implements View.OnClickLi
         if (dayOpen[0]) {
             out += getContext().getString(R.string.every_day) + " ";
         }
+        if(openTime.equals(closeTime)) return out + getString(R.string.all_day);
         out += Utils.calendarToStringHourAndMinute(getContext(), openTime) + " " +
                 getContext().getString(R.string.to) + " " +
                 Utils.calendarToStringHourAndMinute(getContext(), closeTime);
@@ -169,6 +170,14 @@ public class StoreDescriptionFragment extends Fragment implements View.OnClickLi
             if (!b[2]) {
                 sat.setVisibility(View.GONE);
             }
+        }else{
+            sun.setVisibility(View.GONE);
+            mon.setVisibility(View.GONE);
+            tue.setVisibility(View.GONE);
+            wed.setVisibility(View.GONE);
+            thu.setVisibility(View.GONE);
+            fri.setVisibility(View.GONE);
+            sat.setVisibility(View.GONE);
         }
     }
 

@@ -27,8 +27,6 @@ public class ServiceDetailsPagerAdapter extends FragmentPagerAdapter {
                 return StoreDescriptionFragment.newInstance(petService);
             case 1:
                 return StoreReviewFragment.newInstance(petService);
-            case 2:
-                return StoreLocationFragment.newInstance(petService);
             default:
                 return null;
         }
@@ -36,7 +34,7 @@ public class ServiceDetailsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
 }

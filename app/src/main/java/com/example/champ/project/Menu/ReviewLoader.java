@@ -24,6 +24,11 @@ public class ReviewLoader {
     }
 
     private void load() {
+        reviews = new ArrayList<>();
+        getMockReview();
+    }
+
+    private void getMockReview(){
         //this is mock
         Review review = new Review("Anonymous", null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet lorem non arcu tincidunt laoreet.", null);
         reviews.add(review);

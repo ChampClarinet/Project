@@ -29,4 +29,9 @@
     <string name="priceRate">価格レベル :</string>
     <string name="rate_symbol">￥</string>
     <string name="view_replies">%1$d 返信</string>
+    <string name="all_day">24 時間</string>
+    <string name="search_results">検索結果</string>
+    <string name="msg_zero_results">検索結果はありません</string>
+    <string name="open_maps">場所</string>
+    <string name="launch_google_maps">Google Maps を開いています。</string>
 </resources>

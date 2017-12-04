@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Project</string>
+    <string name="app_name">EasyPets</string>
     <string name="tab_hospital">โรงพยาบาลสัตว์</string>
     <string name="search">ค้นหา</string>
     <string name="settings">ตั้งค่า</string>
@@ -28,4 +28,9 @@
     <string name="priceRate">ระดับราคา :</string>
     <string name="rate_symbol">฿</string>
     <string name="view_replies">%1$d การตอบกลับ</string>
+    <string name="all_day">ตลอด 24 ชั่วโมง</string>
+    <string name="msg_zero_results">ไม่พบสถานบริการ</string>
+    <string name="search_results">ผลการค้นหา</string>
+    <string name="open_maps">ที่อยู่ร้าน</string>
+    <string name="launch_google_maps">กำลังเปิด Google Maps</string>
 </resources>

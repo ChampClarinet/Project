@@ -15,7 +15,7 @@
     <string name="likeLabel">Likes:</string>
     <string name="priceRate">Price:</string>
     <string name="available_for">Available for</string>
-    <string name="distanceLabel">%1$skm</string>
+    <string name="distanceLabel" translatable="false">%1$skm</string>
     <string name="open_maps">Location</string>
 
     <!--Text-->
@@ -65,5 +65,7 @@
     <string name="msg_zero_results">There is no results</string>
     <string name="view_replies">%1$d replies</string>
     <string name="rate_symbol">$</string>
+    <string name="all_day">24 Hours</string>
+    <string name="launch_google_maps">Launching Google Maps</string>
 
 </resources>
