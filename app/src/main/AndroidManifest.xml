@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.champ.project">
+    package="com.easypets.champ.easypets">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -25,7 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".SplashActivity"
+            android:name="com.easypets.champ.easypets.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -35,25 +35,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.easypets.champ.easypets.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.easypets.champ.easypets.SettingsActivity"
             android:label="@string/settings"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".LanguageActivity"
+            android:name="com.easypets.champ.easypets.LanguageActivity"
             android:label="@string/language"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".StoreActivity"
+            android:name="com.easypets.champ.easypets.StoreActivity"
             android:label="@string/model_name_services"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".SearchResultsActivity"
+        <activity android:name="com.easypets.champ.easypets.SearchResultsActivity"
             android:label="@string/search_results"/>
 
         <!--
