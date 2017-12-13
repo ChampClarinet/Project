@@ -12,6 +12,10 @@ import java.util.HashMap;
 
 public class SortAgent {
 
+    public enum sortBy{
+        NAME, PRICE_RATE, LIKES, DISTANCE
+    }
+
     private static final Comparator<PetService> name = new Comparator<PetService>() {
         @Override
         public int compare(PetService o1, PetService o2) {
@@ -38,6 +42,17 @@ public class SortAgent {
             return d1.compareTo(d2);
         }
     };
+
+    @NonNull
+    public static ArrayList<PetService> sort(ArrayList<PetService> list, sortBy sortBy){
+        switch (sortBy){
+            case NAME: return sortServiceByName(list);
+            case LIKES: return sortServiceByLikes(list);
+            case DISTANCE: return sortServiceByDistance(list);
+            case PRICE_RATE: return sortServiceByPriceRate(list);
+            default: return null;
+        }
+    }
 
     public static ArrayList<PetService> sortServiceByName(HashMap<Integer, PetService> hash) {
         ArrayList<PetService> list = toArrayList(hash);

@@ -12,17 +12,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.easypets.champ.easypets.Adapters.ServiceListPagerAdapter;
-import com.easypets.champ.easypets.Menu.ServiceMenu;
-import com.easypets.champ.easypets.Models.PetService;
 import com.easypets.champ.easypets.Utils.GPSTracker;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,8 +35,6 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.service_list_pager)
     ViewPager serviceViewPager;
 
-    private ServiceMenu mServiceMenu;
-
     private String defaultLanguage;
 
     @SuppressLint("ClickableViewAccessibility")
@@ -59,18 +51,14 @@ public class MainActivity extends AppCompatActivity
 
         setNavBarAndActionBar();
         setTabAndPager();
-        setMenu();
-        Log.d("DBtest", mServiceMenu.toString());
+        //setMenu();
+        //Log.d("DBtest", mServiceMenu.toString());
     }
 
     private void setTabAndPager() {
         serviceViewPager.setAdapter(new ServiceListPagerAdapter(getSupportFragmentManager()));
         serviceViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(serviceTabLayout));
         serviceTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(serviceViewPager));
-    }
-
-    private void setMenu() {
-        mServiceMenu = ServiceMenu.getInstance(this);
     }
 
     @Override
@@ -82,14 +70,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // Perform the final search
-                Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
-                ArrayList<PetService> result = mServiceMenu.search(query);
-                if (result != null && result.size() > 0) {
-                    intent.putExtra("searchResults", result);
+                if (query.length() > 0) {
+                    Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
+                    intent.putExtra("searchResults", query);
                     startActivity(intent);
-                } else {
                     searchView.setQuery("", false);
-                    Toast.makeText(MainActivity.this, getString(R.string.msg_zero_results), Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }

@@ -9,17 +9,19 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.easypets.champ.easypets.Database.DatabaseHelper;
+import com.easypets.champ.easypets.Models.PetService;
 import com.easypets.champ.easypets.R;
+import com.google.firebase.database.DataSnapshot;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Locale;
 
 public class Utils {
@@ -56,7 +58,7 @@ public class Utils {
         final String THAI = "th";
 
         String hour = time.substring(0,2);
-        int min = Integer.parseInt(time.substring(2));
+        int min = Integer.parseInt(time.substring(3));
         String minute = Integer.toString(min);
         if (min < 10) minute = "0" + minute;
         switch (systemLanguage) {
@@ -135,6 +137,28 @@ public class Utils {
         here.setLongitude(tracker.getLongitude());
         tracker.stopUsingGPS();
         return here;
+    }
+
+    @NonNull
+    public static PetService toService(DataSnapshot dataSnapshot) {
+        String key = dataSnapshot.getKey();
+        int serviceId = Integer.parseInt(Long.toString((long) dataSnapshot.child(PetService.FIELD_SERVICE_ID).getValue()));
+        String name = (String) dataSnapshot.child(PetService.FIELD_SERVICE_NAME).getValue();
+        String banner = (String) dataSnapshot.child(PetService.FIELD_BANNER).getValue();
+        String logo = (String) dataSnapshot.child(PetService.FIELD_LOGO).getValue();
+        String tel = (String) dataSnapshot.child(PetService.FIELD_TEL).getValue();
+        int priceRate = Integer.parseInt((String) dataSnapshot.child(PetService.FIELD_PRICE_RATE).getValue());
+        String likes = (String) dataSnapshot.child(PetService.FIELD_LIKE).getValue();
+        String openDays = (String) dataSnapshot.child(PetService.FIELD_OPEN_DAYS).getValue();
+        String openTime = (String) dataSnapshot.child(PetService.FIELD_OPEN_TIME).getValue();
+        String closeTime = (String) dataSnapshot.child(PetService.FIELD_CLOSE_TIME).getValue();
+        String description = (String) dataSnapshot.child(PetService.FIELD_DESCRIPTION).getValue();
+        double latitude = (double) dataSnapshot.child(PetService.FIELD_LATITUDE).getValue();
+        double longitude = (double) dataSnapshot.child(PetService.FIELD_LONGITUDE).getValue();
+        boolean isHospital = dataSnapshot.child(PetService.FIELD_TYPE).getValue().equals("1");
+        return new PetService(key, serviceId, name, banner, logo, tel, priceRate, likes,
+                openDays, openTime, closeTime, description, latitude, longitude, isHospital
+        );
     }
 
 }

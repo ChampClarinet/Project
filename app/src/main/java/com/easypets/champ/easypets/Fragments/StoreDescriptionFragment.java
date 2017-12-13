@@ -19,8 +19,8 @@ import android.widget.Toast;
 import com.easypets.champ.easypets.Models.PetService;
 import com.easypets.champ.easypets.R;
 import com.easypets.champ.easypets.Utils.Utils;
+import com.squareup.picasso.Picasso;
 
-import java.util.Calendar;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -99,15 +99,20 @@ public class StoreDescriptionFragment extends Fragment implements View.OnClickLi
         openMaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Location location = petService.getLocation();
                 Toast.makeText(getContext(), getString(R.string.launch_google_maps), Toast.LENGTH_SHORT).show();
                 Location location = petService.getLocation();
                 openGoogleMaps(location);
             }
         });
 
-        String imgPath = petService.getPicturePath();
-        storeImageView.setImageDrawable(Utils.getDrawableFromAssets(getContext(), imgPath));
+        Picasso.Builder bannerBuilder = new Picasso.Builder(getContext());
+        bannerBuilder.listener(new Picasso.Listener() {
+            @Override
+            public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                storeImageView.setImageDrawable(Utils.getDrawableFromAssets(getContext(), "scenery.jpg"));
+            }
+        });
+        bannerBuilder.build().load(petService.getPicturePath()).into(storeImageView);
         likesTextView.setText(Integer.toString(petService.getLikes()));
         isLiked = Utils.getLikeCondition(petService.getId(), getActivity());
         if (isLiked) {

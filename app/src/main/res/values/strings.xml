@@ -37,6 +37,7 @@
     <string name="model_name_services" translatable="false">Store</string>
     <string name="model_name_hospital" translatable="false">Hospital</string>
     <string name="error_invalid_service_type" translatable="false">INVALID_SERVICE_TYPE</string>
+    <string name="firebase_reference" translatable="false">app/serviceData/</string>
 
     <!--Days-->
     <string name="SUN">SUN</string>

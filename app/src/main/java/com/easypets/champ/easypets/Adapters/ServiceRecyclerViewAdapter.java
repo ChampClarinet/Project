@@ -4,56 +4,51 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.easypets.champ.easypets.Menu.ServiceMenu;
+import com.bumptech.glide.Glide;
 import com.easypets.champ.easypets.Models.PetService;
 import com.easypets.champ.easypets.R;
 import com.easypets.champ.easypets.StoreActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecyclerViewAdapter.GenericHolder> {
 
     private ArrayList<PetService> dataSet;
-    private ArrayList<PetService> filteredDataSet;
+    private HashMap<String, PetService> dataMap;
     private Context context;
 
     public ServiceRecyclerViewAdapter(ArrayList<PetService> dataSet, Context context) {
         this.dataSet = dataSet;
+        this.dataMap = new HashMap<>();
         this.context = context;
-        filteredDataSet = (ArrayList<PetService>) this.dataSet.clone();
     }
 
     @Override
     public GenericHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_list_service, parent, false);
-        ViewHolder holder = new ViewHolder(v, context);
-        return holder;
+        return new ViewHolder(v, context);
     }
 
     @Override
     public void onBindViewHolder(GenericHolder holder, int position) {
-        PetService petService = filteredDataSet.get(position);
+        PetService petService = dataSet.get(position);
         holder.setViewData(petService);
     }
 
     @Override
     public int getItemCount() {
-        return filteredDataSet.size();
+        return dataSet.size();
     }
 
     public ArrayList<PetService> getData() {
         return dataSet;
-    }
-
-    public ArrayList<PetService> getFilteredData() {
-        return filteredDataSet;
     }
 
     public abstract static class GenericHolder extends RecyclerView.ViewHolder {
@@ -88,11 +83,9 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
             distance = itemView.findViewById(R.id.cv_distance);
         }
 
-        private void openStoreActivity(int id) throws Exception {
-            ServiceMenu menu = ServiceMenu.getInstance(context);
-            PetService petService = menu.getById(id);
+        private void openStoreActivity(PetService service) throws Exception {
             Intent i = new Intent(context, StoreActivity.class);
-            i.putExtra(context.getString(R.string.model_name_services), petService);
+            i.putExtra(context.getString(R.string.model_name_services), service);
             context.startActivity(i);
         }
 
@@ -101,9 +94,7 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
             String s = Integer.toString(petService.getLikes());
             this.name.setText(petService.getName());
             this.likes.setText(s);
-            //photo.setImageDrawable(Utils.getDrawableFromAssets(context, petService.getPicturePath()));
-            photo.setImageResource(R.drawable.ic_launcher);
-            //String rateText = context.getString(R.string.priceRate) + " " + petService.getPriceRateString();
+            Glide.with(context).load(petService.getLogoPath()).override(60, 60).into(this.photo);
             String rateText = context.getString(R.string.priceRate) + " ";
             for (int i = 0; i < petService.getPriceRate(); ++i) {
                 rateText += context.getString(R.string.rate_symbol);
@@ -117,7 +108,7 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
                 @Override
                 public void onClick(View v) {
                     try {
-                        openStoreActivity(petService.getId());
+                        openStoreActivity(petService);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -125,25 +116,6 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
             });
         }
 
-    }
-
-    public void updateList(ArrayList<PetService> newList) {
-        if (newList != null) {
-            filteredDataSet = newList;
-            notifyDataSetChanged();
-        }
-        Log.d("Recycler", printList());
-    }
-
-    public void filterList(ArrayList<PetService> newList) {
-        if (newList == null) {
-            resetFilter();
-        } else filteredDataSet = newList;
-        notifyDataSetChanged();
-    }
-
-    public void resetFilter() {
-        filteredDataSet = (ArrayList<PetService>) dataSet.clone();
     }
 
     private String printList() {

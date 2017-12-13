@@ -10,6 +10,7 @@
         android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version" />
 
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -53,8 +54,9 @@
             android:label="@string/model_name_services"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name="com.easypets.champ.easypets.SearchResultsActivity"
-            android:label="@string/search_results"/>
+        <activity
+            android:name="com.easypets.champ.easypets.SearchResultsActivity"
+            android:label="@string/search_results" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

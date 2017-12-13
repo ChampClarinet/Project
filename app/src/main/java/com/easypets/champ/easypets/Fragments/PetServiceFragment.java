@@ -12,8 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.easypets.champ.easypets.Adapters.ServiceRecyclerViewAdapter;
-import com.easypets.champ.easypets.Menu.ServiceMenu;
+import com.easypets.champ.easypets.Models.PetService;
 import com.easypets.champ.easypets.R;
+import com.easypets.champ.easypets.Utils.SortAgent;
+import com.easypets.champ.easypets.Utils.Utils;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +36,9 @@ public class PetServiceFragment extends Fragment {
     private static final String ARGS_IS_HOSPITAL = "isHospital";
 
     private boolean isHospital;
-    private ServiceMenu menu;
+    private ArrayList<PetService> serviceList;
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
     private ServiceRecyclerViewAdapter adapter;
 
     @BindView(R.id.sortMenuFab)
@@ -58,7 +70,12 @@ public class PetServiceFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        if (args != null) isHospital = args.getBoolean(ARGS_IS_HOSPITAL);
+        if (args != null) {
+            isHospital = args.getBoolean(ARGS_IS_HOSPITAL);
+            serviceList = new ArrayList<>();
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            databaseReference = firebaseDatabase.getReference(getString(R.string.firebase_reference));
+        }
     }
 
     @Nullable
@@ -72,61 +89,84 @@ public class PetServiceFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        menu = ServiceMenu.getInstance(getContext());
+        adapter = new ServiceRecyclerViewAdapter(serviceList, getContext());
 
-        if (isHospital) {
-            Log.d(TAG, "creating hospital");
-            adapter = new ServiceRecyclerViewAdapter(menu.getHospitalList(ServiceMenu.SORT_BY_DISTANCE), getContext());
-        } else {
-            Log.d(TAG, "crating service");
-            adapter = new ServiceRecyclerViewAdapter(menu.getServiceList(ServiceMenu.SORT_BY_DISTANCE), getContext());
-        }
         petServiceRecyclerView.setHasFixedSize(true);
         petServiceRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         petServiceRecyclerView.setAdapter(adapter);
-//        DividerItemDecoration myDivider = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-//        myDivider.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
-//        petServiceRecyclerView.addItemDecoration(myDivider );
+
+        bindData();
 
         setFab();
 
+    }
+
+    private void bindData(){
+        Query query;
+        if(isHospital){
+            Log.d(TAG, "creating hospital list");
+            query = databaseReference.orderByChild("type").equalTo("1");
+        }else{
+            query = databaseReference.orderByChild("type").equalTo("0");
+            Log.d(TAG, "creating service list");
+        }
+        query.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                PetService service = Utils.toService(dataSnapshot);
+                serviceList.add(service);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void setFab() {
         nameFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isHospital) {
-                    adapter.updateList(menu.sort(adapter.getFilteredData(), ServiceMenu.SORT_BY_NAME));
-                } else
-                    adapter.updateList(menu.sort(adapter.getFilteredData(), ServiceMenu.SORT_BY_NAME));
+                SortAgent.sort(serviceList, SortAgent.sortBy.NAME);
+                adapter.notifyDataSetChanged();
             }
         });
         distanceFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isHospital) {
-                    adapter.updateList(menu.sort(adapter.getFilteredData(), ServiceMenu.SORT_BY_DISTANCE));
-                } else
-                    adapter.updateList(menu.sort(adapter.getFilteredData(), ServiceMenu.SORT_BY_DISTANCE));
+                SortAgent.sort(serviceList, SortAgent.sortBy.DISTANCE);
+                adapter.notifyDataSetChanged();
             }
         });
         priceRateFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isHospital) {
-                    adapter.updateList(menu.sort(adapter.getFilteredData(), ServiceMenu.SORT_BY_PRICE_RATE));
-                } else
-                    adapter.updateList(menu.sort(adapter.getFilteredData(), ServiceMenu.SORT_BY_PRICE_RATE));
+                SortAgent.sort(serviceList, SortAgent.sortBy.PRICE_RATE);
+                adapter.notifyDataSetChanged();
             }
         });
         likesFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isHospital) {
-                    adapter.updateList(menu.sort(adapter.getFilteredData(), ServiceMenu.SORT_BY_LIKES));
-                } else
-                    adapter.updateList(menu.sort(adapter.getFilteredData(), ServiceMenu.SORT_BY_LIKES));
+                SortAgent.sort(serviceList, SortAgent.sortBy.LIKES);
+                adapter.notifyDataSetChanged();
             }
         });
         fabMenu.collapse();
