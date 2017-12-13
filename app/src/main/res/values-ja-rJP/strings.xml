@@ -34,4 +34,9 @@
     <string name="msg_zero_results">検索結果はありません</string>
     <string name="open_maps">場所</string>
     <string name="launch_google_maps">Google Maps を開いています。</string>
+    <string name="login">ログイン</string>
+    <string name="google_login_failed">グーグルロクインは失敗しました。</string>
+    <string name="login_as">%1$s としてロクインしています</string>
+    <string name="facebook_login_text">Facebookでロクイン</string>
+    <string name="facebook_login_failed">Facebookでロクインは失敗しました。</string>
 </resources>

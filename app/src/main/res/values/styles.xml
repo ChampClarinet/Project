@@ -19,7 +19,7 @@
         </item>
         <item name="android:textColorHint">@color/com_facebook_button_background_color_selected
         </item>
-       <!-- <item name="searchViewStyle">@style/AppTheme.SearchView</item> -->
+        <!-- <item name="searchViewStyle">@style/AppTheme.SearchView</item> -->
     </style>
 
     <style name="AppTheme.SearchView" parent="Widget.AppCompat.SearchView">

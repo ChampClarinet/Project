@@ -9,14 +9,23 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.easypets.champ.easypets.Adapters.ServiceListPagerAdapter;
 import com.easypets.champ.easypets.Utils.GPSTracker;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -97,7 +106,7 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
-/*
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -105,7 +114,21 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        */
+
+        View navbarHeaderView = navigationView.getHeaderView(0);
+        ImageView userImageView = navbarHeaderView.findViewById(R.id.navbar_imageview);
+        TextView userName = navbarHeaderView.findViewById(R.id.navbar_name);
+        TextView userEmail = navbarHeaderView.findViewById(R.id.navbar_email);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Log.d(TAG, user+"");
+
+        if(user != null){
+            Picasso.with(this).load(user.getPhotoUrl()).placeholder(R.drawable.ic_launcher).fit().into(userImageView);
+            userName.setText(user.getDisplayName());
+            userEmail.setText(user.getEmail());
+        }
+
     }
 
     @Override
@@ -123,20 +146,14 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-/*
-        if (id == R.id.drawer_pet_service) {
-            rvService.setVisibility(View.VISIBLE);
-            rvHospital.setVisibility(View.GONE);
-            currentFocus = getString(R.string.model_name_store);
-        } else if (id == R.id.drawer_hospital) {
-            rvService.setVisibility(View.GONE);
-            rvHospital.setVisibility(View.VISIBLE);
-            currentFocus = getString(R.string.model_name_hospital);
-        } else if (id == R.id.drawer_settings) {
-            //go to setting activity
-            startActivity(new Intent(this, SettingsActivity.class));
+
+        if(id == R.id.logout){
+            FirebaseAuth.getInstance().signOut();
+            LoginManager.getInstance().logOut();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
         }
-*/
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

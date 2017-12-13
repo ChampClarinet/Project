@@ -33,4 +33,9 @@
     <string name="search_results">ผลการค้นหา</string>
     <string name="open_maps">ที่อยู่ร้าน</string>
     <string name="launch_google_maps">กำลังเปิด Google Maps</string>
+    <string name="login">ล็อคอิน</string>
+    <string name="google_login_failed">การล็อคอินด้วย Google ผิดพลาด</string>
+    <string name="login_as">ล็อคอินในชื่อ %1$s</string>
+    <string name="facebook_login_text">ล็อคอินด้วย Facebook</string>
+    <string name="facebook_login_failed">การล็อคอินด้วย Facebook ผิดพลาด</string>
 </resources>

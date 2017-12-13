@@ -3,7 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/exit"
+        android:iconTint="@color/icon"
+        android:title="@string/logout" />
+
+    <!--<group android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_pet_service"
             android:icon="@drawable/dog_paw"
@@ -17,7 +23,7 @@
             android:icon="@drawable/ic_build_black_24dp"
             android:title="@string/settings"
             android:visible="false" />
-    </group>
+    </group>-->
 
     <!--    <item android:title="Communicate">
             <menu>

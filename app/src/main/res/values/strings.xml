@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">EasyPets</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -23,11 +24,15 @@
     <string name="hour_suffix" />
     <string name="minutes" />
     <string name="to">to</string>
+    <string name="google_login_failed">Google login failed.</string>
+    <string name="facebook_login_failed">Facebook login failed.</string>
+    <string name="login_as">Logged in as %1$s</string>
 
     <!--Titles-->
     <string name="search">Search</string>
     <string name="settings">Settings</string>
     <string name="language">Language</string>
+    <string name="login">Login</string>
 
     <!--Values-->
     <string name="default_language_code" translatable="false">th</string>
@@ -38,6 +43,7 @@
     <string name="model_name_hospital" translatable="false">Hospital</string>
     <string name="error_invalid_service_type" translatable="false">INVALID_SERVICE_TYPE</string>
     <string name="firebase_reference" translatable="false">app/serviceData/</string>
+    <string name="facebook_app_id" translatable="false">509673742741220</string>
 
     <!--Days-->
     <string name="SUN">SUN</string>
@@ -68,5 +74,7 @@
     <string name="rate_symbol">$</string>
     <string name="all_day">24 Hours</string>
     <string name="launch_google_maps">Launching Google Maps</string>
+    <string name="logout">logout</string>
+    <string name="facebook_login_text">Login with Facebook</string>
 
 </resources>
