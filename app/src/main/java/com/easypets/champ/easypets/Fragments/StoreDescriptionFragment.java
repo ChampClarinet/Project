@@ -16,9 +16,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.GlideBuilder;
 import com.easypets.champ.easypets.Models.PetService;
 import com.easypets.champ.easypets.R;
 import com.easypets.champ.easypets.Utils.Utils;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
@@ -105,7 +110,11 @@ public class StoreDescriptionFragment extends Fragment implements View.OnClickLi
             }
         });
 
-        Picasso.Builder bannerBuilder = new Picasso.Builder(getContext());
+        String bannerPath = getString(R.string.banner_storage_ref) + petService.getPicturePath();
+        StorageReference reference = FirebaseStorage.getInstance().getReference().child(bannerPath);
+        Glide.with(this).using(new FirebaseImageLoader()).load(reference).fitCenter().into(storeImageView);
+
+        /*Picasso.Builder bannerBuilder = new Picasso.Builder(getContext());
         bannerBuilder.listener(new Picasso.Listener() {
             @Override
             public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
@@ -113,6 +122,7 @@ public class StoreDescriptionFragment extends Fragment implements View.OnClickLi
             }
         });
         bannerBuilder.build().load(petService.getPicturePath()).into(storeImageView);
+        */
         likesTextView.setText(Integer.toString(petService.getLikes()));
         isLiked = Utils.getLikeCondition(petService.getId(), getActivity());
         if (isLiked) {

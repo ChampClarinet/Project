@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,12 @@ import com.bumptech.glide.Glide;
 import com.easypets.champ.easypets.Models.PetService;
 import com.easypets.champ.easypets.R;
 import com.easypets.champ.easypets.StoreActivity;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,7 +101,9 @@ public class ServiceRecyclerViewAdapter extends RecyclerView.Adapter<ServiceRecy
             String s = Integer.toString(petService.getLikes());
             this.name.setText(petService.getName());
             this.likes.setText(s);
-            Glide.with(context).load(petService.getLogoPath()).override(60, 60).into(this.photo);
+            String logoPath = context.getString(R.string.icon_storage_ref)+petService.getLogoPath();
+            StorageReference reference = FirebaseStorage.getInstance().getReference().child(logoPath);
+            Glide.with(context).using(new FirebaseImageLoader()).load(reference).into(this.photo);
             String rateText = context.getString(R.string.priceRate) + " ";
             for (int i = 0; i < petService.getPriceRate(); ++i) {
                 rateText += context.getString(R.string.rate_symbol);

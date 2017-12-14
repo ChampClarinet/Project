@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.easypets.champ.easypets.Adapters.ServiceListPagerAdapter;
 import com.easypets.champ.easypets.Utils.GPSTracker;
 import com.facebook.login.LoginManager;
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, user+"");
 
         if(user != null){
-            Picasso.with(this).load(user.getPhotoUrl()).placeholder(R.drawable.ic_launcher).fit().into(userImageView);
+            Glide.with(this).load(user.getPhotoUrl()).fitCenter().into(userImageView);
             userName.setText(user.getDisplayName());
             userEmail.setText(user.getEmail());
         }

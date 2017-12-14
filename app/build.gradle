@@ -40,7 +40,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
 
     //Glide
-    compile 'com.github.bumptech.glide:glide:3.5.2'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 
     //CircleImageView
     compile 'de.hdodenhof:circleimageview:2.2.0'
@@ -54,13 +54,16 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:11.6.2'
 
     //Facebook Login
-    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.facebook.android:facebook-android-sdk:4.29.0'
 
     //Google Maps
     implementation 'com.google.android.gms:play-services-maps:11.6.2'
 
     //fab
     compile 'com.github.toanvc:floatingactionmenu:0.8.9'
+
+    //FirebaseUI Storage
+    compile 'com.firebaseui:firebase-ui-storage:0.6.0'
 }
 
 
