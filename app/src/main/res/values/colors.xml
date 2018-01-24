@@ -8,4 +8,5 @@
     <color name="text">@color/colorPrimaryDark</color>
     <color name="icon">@color/text</color>
     <color name="liked">#f97e77</color>
+    <color name="black">#000000</color>
 </resources>

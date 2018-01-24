@@ -18,6 +18,23 @@
     <string name="available_for">Available for</string>
     <string name="distanceLabel" translatable="false">%1$skm</string>
     <string name="open_maps">Location</string>
+    <string name="opening">Opening now</string>
+    <string name="price_filter">Price rate</string>
+    <string name="low">low</string>
+    <string name="mid">medium</string>
+    <string name="high">high</string>
+    <string name="popularity">Popularity</string>
+    <string name="filter">Filter</string>
+    <string name="title_activity_search">Search</string>
+    <string name="title_activity_search_filter">Filter</string>
+    <string name="one" translatable="false">1</string>
+    <string name="two" translatable="false">2</string>
+    <string name="three" translatable="false">3</string>
+    <string name="four" translatable="false">4</string>
+    <string name="five" translatable="false">5</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="search_hint">Search from your current location</string>
+    <string name="filter_button">SEARCH OPTIONS</string>
 
     <!--Text-->
     <string name="every_day">Every day</string>
@@ -78,5 +95,6 @@
     <string name="launch_google_maps">Launching Google Maps</string>
     <string name="logout">logout</string>
     <string name="facebook_login_text">Login with Facebook</string>
+    <string name="clear">clear</string>
 
 </resources>
